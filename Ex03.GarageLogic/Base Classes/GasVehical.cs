@@ -10,7 +10,7 @@ namespace Ex03.GarageLogic
 		private readonly float r_MaxGasTankCapacity;
 		private float m_CurrentGasVolume;
 
-		public GasVehical(string i_Model, string i_LisencePlate, List<Wheel> i_Wheels, eFuelType i_FuelType, float i_MaxGasTankCapacity, float i_CurrentGasVolume) : base(i_Model, i_LisencePlate, i_Wheels)
+		public GasVehical(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels, eFuelType i_FuelType, float i_MaxGasTankCapacity, float i_CurrentGasVolume) : base(i_Model, i_LicensePlate, i_Wheels)
 		{
 			r_FuelType = i_FuelType;
 			r_MaxGasTankCapacity = i_MaxGasTankCapacity;

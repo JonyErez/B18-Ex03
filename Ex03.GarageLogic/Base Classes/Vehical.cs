@@ -7,14 +7,14 @@ namespace Ex03.GarageLogic
 	internal abstract class Vehical
 	{
 		private readonly string r_Model;
-		private readonly string r_LisencePlate;
+		private readonly string r_LicensePlate;
 		private float m_EnergyLeft;
 		private List<Wheel> m_Wheels;
 
-		public Vehical(string i_Model, string i_LisencePlate, List<Wheel> i_Wheels)
+		public Vehical(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels)
 		{
 			r_Model = i_Model;
-			r_LisencePlate = i_LisencePlate;
+			r_LicensePlate = i_LicensePlate;
 			m_Wheels = i_Wheels;
 		}
 
@@ -26,11 +26,11 @@ namespace Ex03.GarageLogic
 			}
 		}
 
-		public string LisencePlate
+		public string LicensePlate
 		{
 			get
 			{
-				return r_LisencePlate;
+				return r_LicensePlate;
 			}
 		}
 

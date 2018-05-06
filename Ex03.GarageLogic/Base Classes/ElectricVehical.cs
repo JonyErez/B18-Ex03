@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
 		private readonly float r_MaxBattaryTime;
 		private float m_BattaryTimeLeft;
 
-		public ElectricVehical(string i_Model, string i_LisencePlate, List<Wheel> i_Wheels, float i_MaxBattaryTime, float i_BattaryTimeLeft) : base (i_Model, i_LisencePlate, i_Wheels)
+		public ElectricVehical(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels, float i_MaxBattaryTime, float i_BattaryTimeLeft) : base (i_Model, i_LicensePlate, i_Wheels)
 		{
 			r_MaxBattaryTime = i_MaxBattaryTime;
 			m_BattaryTimeLeft = i_BattaryTimeLeft;

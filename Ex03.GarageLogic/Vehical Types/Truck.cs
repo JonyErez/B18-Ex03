@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic.Vehical_Types
 		private readonly float r_CargoholdVolume;
 		private readonly bool r_IsCargoholdCooled;
 
-		public Truck(string i_Model, string i_LisencePlate, List<Wheel> i_Wheels, eFuelType i_FuelType, float i_MaxGasTankCapacity, float i_CurrentGasVolume, bool i_IsCargoholdCooled, float i_CargoholdVolume) : base(i_Model, i_LisencePlate, i_Wheels, i_FuelType, i_MaxGasTankCapacity, i_CurrentGasVolume)
+		public Truck(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels, eFuelType i_FuelType, float i_MaxGasTankCapacity, float i_CurrentGasVolume, bool i_IsCargoholdCooled, float i_CargoholdVolume) : base(i_Model, i_LicensePlate, i_Wheels, i_FuelType, i_MaxGasTankCapacity, i_CurrentGasVolume)
 		{
 			r_CargoholdVolume = i_CargoholdVolume;
 			r_IsCargoholdCooled = i_IsCargoholdCooled;
