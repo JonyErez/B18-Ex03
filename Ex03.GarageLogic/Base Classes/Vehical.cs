@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-	internal abstract class Vehical
+	public abstract class Vehical
 	{
 		private readonly string r_Model;
 		private readonly string r_LicensePlate;
