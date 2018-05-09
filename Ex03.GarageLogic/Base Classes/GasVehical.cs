@@ -17,6 +17,16 @@ namespace Ex03.GarageLogic
 			UpdateEnergyPercentLeft();
 		}
 
+		public override string ToString()
+		{
+			StringBuilder gasVehicalDetails = new StringBuilder(base.ToString());
+			gasVehicalDetails.AppendLine(string.Format(@"Fuel type: {0}
+Max gas tank capacity: {1}
+Current gas volume: {2}", r_FuelType.ToString(), r_MaxGasTankCapacity, m_CurrentGasVolume));
+
+			return gasVehicalDetails.ToString();
+		}
+
 		public Enums.eFuelType FuelType
 		{
 			get

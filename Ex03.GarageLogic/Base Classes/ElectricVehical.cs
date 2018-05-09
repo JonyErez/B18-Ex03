@@ -15,6 +15,15 @@ namespace Ex03.GarageLogic
 			UpdateEnergyPercentLeft();
 		}
 
+		public override string ToString()
+		{
+			StringBuilder electricVehicalDetails = new StringBuilder(base.ToString());
+			electricVehicalDetails.AppendLine(string.Format(@"Max battary time: {0}
+Battary time left: {1}", r_MaxBattaryTime, m_BattaryTimeLeft));
+
+			return electricVehicalDetails.ToString();
+		}
+
 		public float MaxBattaryTime
 		{
 			get

@@ -17,6 +17,30 @@ namespace Ex03.GarageLogic
 			r_LicensePlate = i_LicensePlate;
 		}
 
+		public override string ToString()
+		{
+			return string.Format(@"License plate: {0}
+Model: {1}
+Energy left: {2:p}
+Wheels:
+{3}", r_LicensePlate, r_Model, m_EnergyLeft, getWheelDetails());
+		}
+
+		private string getWheelDetails()
+		{
+			StringBuilder wheelsDetails = new StringBuilder();
+			int i = 1;
+
+			foreach(Wheel wheel in m_Wheels)
+			{
+				wheelsDetails.AppendLine(string.Format("Wheel {0}:", i));
+				wheelsDetails.AppendLine(wheel.ToString());
+				i++;
+			}
+
+			return wheelsDetails.ToString();
+		}
+
 		public string Model
 		{
 			get

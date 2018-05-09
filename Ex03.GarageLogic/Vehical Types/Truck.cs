@@ -8,8 +8,16 @@ namespace Ex03.GarageLogic.Vehical_Types
 	{
 		private readonly TruckProperties r_TruckProperties = null;
 
-		public Truck(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels, Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity, float i_CurrentGasVolume) : base(i_Model, i_LicensePlate, i_Wheels, i_FuelType, i_MaxGasTankCapacity, i_CurrentGasVolume)
+		public Truck(string i_Model, string i_LicensePlate, Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity) : base(i_Model, i_LicensePlate, i_FuelType, i_MaxGasTankCapacity)
 		{
+		}
+
+		public override string ToString()
+		{
+			StringBuilder TruckDetails = new StringBuilder(base.ToString());
+			TruckDetails.AppendLine(r_TruckProperties.ToString());
+
+			return TruckDetails.ToString();
 		}
 	}
 }

@@ -15,6 +15,12 @@ namespace Ex03.GarageLogic
 			m_CurrentPSI = i_CurrentPSI;
 		}
 
+		public override string ToString()
+		{
+			return string.Format(@"Manufacor: {0}
+Max PSI: {1}
+Current PSI: {2}", r_Manufacturer, r_MaxPSI, m_CurrentPSI);
+		}
 		public	string	Manufacturer
 		{
 			get
