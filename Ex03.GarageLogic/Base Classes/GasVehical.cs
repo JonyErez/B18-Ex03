@@ -6,11 +6,11 @@ namespace Ex03.GarageLogic
 {
 	internal abstract class GasVehical : Vehical
 	{
-		private readonly eFuelType r_FuelType;
+		private readonly Enums.eFuelType r_FuelType;
 		private readonly float r_MaxGasTankCapacity;
 		private float m_CurrentGasVolume;
 
-		public GasVehical(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels, eFuelType i_FuelType, float i_MaxGasTankCapacity, float i_CurrentGasVolume) : base(i_Model, i_LicensePlate, i_Wheels)
+		public GasVehical(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels, Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity, float i_CurrentGasVolume) : base(i_Model, i_LicensePlate, i_Wheels)
 		{
 			r_FuelType = i_FuelType;
 			r_MaxGasTankCapacity = i_MaxGasTankCapacity;
@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
 			UpdateEnergyPercentLeft();
 		}
 
-		public eFuelType FuelType
+		public Enums.eFuelType FuelType
 		{
 			get
 			{
@@ -42,7 +42,7 @@ namespace Ex03.GarageLogic
 			}
 		}
 
-		public void FillGas(eFuelType i_FuelType, float i_GasToFill)
+		public void FillGas(Enums.eFuelType i_FuelType, float i_GasToFill)
 		{
 			if (i_FuelType == r_FuelType)
 			{
