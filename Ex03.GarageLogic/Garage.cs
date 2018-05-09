@@ -8,14 +8,19 @@ namespace Ex03.GarageLogic
 	{
 		Dictionary<int, VehicalInformation> Vehicals = new Dictionary<int, VehicalInformation>();
 
-		public VehicalInformation FindVehical(int i_LisencePlateKey)
+		public VehicalInformation FindVehical(string i_LisencePlateKey)
 		{
 			VehicalInformation VehicalToFind;
-			if (!Vehicals.TryGetValue(i_LisencePlateKey, out VehicalToFind))
+			if (!Vehicals.TryGetValue(i_LisencePlateKey.GetHashCode(), out VehicalToFind))
 			{
 				VehicalToFind = null; 
 			}
 			return VehicalToFind;
+		}
+
+		public void AddVehical(VehicalInformation i_VehicalToAdd)
+		{
+			Vehicals.Add(i_VehicalToAdd.Vehical.LicensePlate.GetHashCode(), i_VehicalToAdd);
 		}
 
 	}

@@ -43,6 +43,7 @@
     <Compile Include="Base Classes\ElectricVehical.cs" />
     <Compile Include="Enums\eLicenceTypes.cs" />
     <Compile Include="Enums\eNumberOfDoors.cs" />
+    <Compile Include="Enums\eVehicalStatus.cs" />
     <Compile Include="Garage.cs" />
     <Compile Include="MotorcycleProperties.cs" />
     <Compile Include="TruckProperties.cs" />
