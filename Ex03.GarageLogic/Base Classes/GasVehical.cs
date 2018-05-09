@@ -10,11 +10,10 @@ namespace Ex03.GarageLogic
 		private readonly float r_MaxGasTankCapacity;
 		private float m_CurrentGasVolume;
 
-		public GasVehical(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels, Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity, float i_CurrentGasVolume) : base(i_Model, i_LicensePlate, i_Wheels)
+		public GasVehical(string i_Model, string i_LicensePlate, Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity) : base(i_Model, i_LicensePlate)
 		{
 			r_FuelType = i_FuelType;
 			r_MaxGasTankCapacity = i_MaxGasTankCapacity;
-			m_CurrentGasVolume = i_CurrentGasVolume;
 			UpdateEnergyPercentLeft();
 		}
 
@@ -39,6 +38,10 @@ namespace Ex03.GarageLogic
 			get
 			{
 				return m_CurrentGasVolume;
+			}
+			set
+			{
+				m_CurrentGasVolume = value;
 			}
 		}
 

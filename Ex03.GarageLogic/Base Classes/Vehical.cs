@@ -11,11 +11,10 @@ namespace Ex03.GarageLogic
 		private float m_EnergyLeft;
 		private List<Wheel> m_Wheels;
 
-		public Vehical(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels)
+		public Vehical(string i_Model, string i_LicensePlate)
 		{
 			r_Model = i_Model;
 			r_LicensePlate = i_LicensePlate;
-			m_Wheels = i_Wheels;
 		}
 
 		public string Model
@@ -52,6 +51,10 @@ namespace Ex03.GarageLogic
 			get
 			{
 				return m_Wheels;
+			}
+			set
+			{
+				m_Wheels = value;
 			}
 		}
 

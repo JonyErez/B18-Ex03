@@ -9,10 +9,9 @@ namespace Ex03.GarageLogic
 		private readonly float r_MaxBattaryTime;
 		private float m_BattaryTimeLeft;
 
-		public ElectricVehical(string i_Model, string i_LicensePlate, List<Wheel> i_Wheels, float i_MaxBattaryTime, float i_BattaryTimeLeft) : base (i_Model, i_LicensePlate, i_Wheels)
+		public ElectricVehical(string i_Model, string i_LicensePlate, float i_MaxBattaryTime) : base (i_Model, i_LicensePlate)
 		{
 			r_MaxBattaryTime = i_MaxBattaryTime;
-			m_BattaryTimeLeft = i_BattaryTimeLeft;
 			UpdateEnergyPercentLeft();
 		}
 
@@ -29,6 +28,10 @@ namespace Ex03.GarageLogic
 			get
 			{
 				return m_BattaryTimeLeft;
+			}
+			set
+			{
+				m_BattaryTimeLeft = value;
 			}
 		}
 
