@@ -43,6 +43,7 @@
     <Compile Include="Base Classes\ElectricVehical.cs" />
     <Compile Include="Enums\eLicenceTypes.cs" />
     <Compile Include="Enums\eNumberOfDoors.cs" />
+    <Compile Include="Garage.cs" />
     <Compile Include="MotorcycleProperties.cs" />
     <Compile Include="TruckProperties.cs" />
     <Compile Include="Vehical Types\ElectricCar.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Vehical Types\GasMotorcycle.cs" />
     <Compile Include="Vehical Types\Truck.cs" />
     <Compile Include="VehicalFactory.cs" />
+    <Compile Include="VehicalInformation.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

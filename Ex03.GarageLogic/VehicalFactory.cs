@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
 			GasMotorcycle
 		}
 
-		public Vehical CreateVehical(eVehicalTypes i_VehicalType, )
+		public Vehical CreateVehical(eVehicalTypes i_VehicalType )
 		{
 			Vehical newVehical;
 			switch (i_VehicalType)
