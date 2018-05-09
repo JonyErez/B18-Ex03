@@ -44,6 +44,7 @@
     <Compile Include="Enums\eLicenceTypes.cs" />
     <Compile Include="Enums\eNumberOfDoors.cs" />
     <Compile Include="MotorcycleProperties.cs" />
+    <Compile Include="TruckProperties.cs" />
     <Compile Include="Vehical Types\ElectricCar.cs" />
     <Compile Include="Vehical Types\ElectricMotorcycle.cs" />
     <Compile Include="Vehical Types\GasCar.cs" />
