@@ -8,12 +8,12 @@ namespace Ex03.GarageLogic
 	{
 		Dictionary<int, VehicalInformation> Vehicals = new Dictionary<int, VehicalInformation>();
 
-		public VehicalInformation FindVehical(string i_LisencePlateKey)
+		public VehicalInformation FindVehical(string i_LicensePlate)
 		{
 			VehicalInformation VehicalToFind;
-			if (!Vehicals.TryGetValue(i_LisencePlateKey.GetHashCode(), out VehicalToFind))
+			if (!Vehicals.TryGetValue(i_LicensePlate.GetHashCode(), out VehicalToFind))
 			{
-				VehicalToFind = null; 
+				throw new Exception(string.Format("No vehical that matches the license plate '{0}' in the garage!", i_LicensePlate));
 			}
 			return VehicalToFind;
 		}
@@ -23,5 +23,80 @@ namespace Ex03.GarageLogic
 			Vehicals.Add(i_VehicalToAdd.Vehical.LicensePlate.GetHashCode(), i_VehicalToAdd);
 		}
 
+		public void ChangeVehicalStatus(string i_LicensePlate, Enums.eVehicalStatus i_NewStatus)
+		{
+			VehicalInformation VehicalToUpdate = FindVehical(i_LicensePlate);
+			VehicalToUpdate.VehicalStatus = i_NewStatus;
+		}
+
+		public List<string> ListVehicals()
+		{
+			List<string> licensePlates = new List<string>(Vehicals.Count);
+			foreach (KeyValuePair<int, VehicalInformation> currentVehical in Vehicals)
+			{
+				licensePlates.Add(currentVehical.Value.Vehical.LicensePlate);
+			}
+
+			return licensePlates;
+		}
+
+		public List<string> ListVehicals(Enums.eVehicalStatus i_StatusToFilterBy)
+		{
+			List<string> licensePlates = new List<string>();
+			foreach (KeyValuePair<int, VehicalInformation> currentVehical in Vehicals)
+			{
+				if (currentVehical.Value.VehicalStatus == i_StatusToFilterBy)
+				{
+					licensePlates.Add(currentVehical.Value.Vehical.LicensePlate);
+				}
+			}
+
+			return licensePlates;
+		}
+
+		public void InflateWheels(string i_LicensePlate)
+		{
+			VehicalInformation VehicalToInflate = FindVehical(i_LicensePlate);
+			foreach (Wheel currentWheel in VehicalToInflate.Vehical.Wheels)
+			{
+				currentWheel.Inflate(currentWheel.MaxPSI - currentWheel.CurrentPSI);
+			}
+		}
+
+		public void RefuelVehical(string i_LicensePlate, Enums.eFuelType i_FuelType, float i_GasToFill)
+		{
+			VehicalInformation VehicalToRefuel = FindVehical(i_LicensePlate);
+			GasVehical gasVehicalToRefuel = VehicalToRefuel.Vehical as GasVehical;
+
+			if (gasVehicalToRefuel != null)
+			{
+				gasVehicalToRefuel.FillGas(i_FuelType, i_GasToFill);
+			}
+			else
+			{
+				throw new Exception("Cannot refuel a car that is not run by gas!");
+			}
+		}
+
+		public void RechargeVehical(string i_LicensePlate, float i_HoursToCharge)
+		{
+			VehicalInformation VehicalToRecharge = FindVehical(i_LicensePlate);
+			ElectricVehical electricVehicalToRecharge = VehicalToRecharge.Vehical as ElectricVehical;
+
+			if (electricVehicalToRecharge != null)
+			{
+				electricVehicalToRecharge.ChargeVehical(i_HoursToCharge);
+			}
+			else
+			{
+				throw new Exception("Cannot recharge a car that is not run by electricity!");
+			}
+		}
+
+		public string VehicalDetails(string i_LicensePlate)
+		{
+			VehicalInformation VehicalToPrintDetails = FindVehical(i_LicensePlate);
+			return VehicalToPrintDetails.ToString();
+		}
 	}
 }
