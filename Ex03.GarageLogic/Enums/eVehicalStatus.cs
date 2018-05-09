@@ -7,7 +7,7 @@ namespace Ex03.GarageLogic.Enums
 	public enum eVehicalStatus
 	{
 		InRepair,
-		Repaired,
-		PaidFor
+		Fixed,
+		Payed
 	}
 }
