@@ -66,7 +66,7 @@ namespace Ex03.GarageLogic
 		public void RefuelVehical(string i_LicensePlate, Enums.eFuelType i_FuelType, float i_GasToFill)
 		{
 			VehicalInformation VehicalToRefuel = FindVehical(i_LicensePlate);
-			GasVehical gasVehicalToRefuel = VehicalToRefuel.Vehical as GasVehical;
+			EngineTypes.GasEngine gasVehicalToRefuel = VehicalToRefuel.Vehical.Engine as EngineTypes.GasEngine;
 
 			if (gasVehicalToRefuel != null)
 			{
@@ -74,14 +74,14 @@ namespace Ex03.GarageLogic
 			}
 			else
 			{
-				throw new Exception("Cannot refuel a car that is not run by gas!");
+				throw new ArgumentException("Cannot refuel a car that is not run by gas!");
 			}
 		}
 
 		public void RechargeVehical(string i_LicensePlate, float i_HoursToCharge)
 		{
 			VehicalInformation VehicalToRecharge = FindVehical(i_LicensePlate);
-			ElectricVehical electricVehicalToRecharge = VehicalToRecharge.Vehical as ElectricVehical;
+			EngineTypes.ElectricEngine electricVehicalToRecharge = VehicalToRecharge.Vehical.Engine as EngineTypes.ElectricEngine;
 
 			if (electricVehicalToRecharge != null)
 			{
@@ -89,7 +89,7 @@ namespace Ex03.GarageLogic
 			}
 			else
 			{
-				throw new Exception("Cannot recharge a car that is not run by electricity!");
+				throw new ArgumentException("Cannot recharge a car that is not run by electricity!");
 			}
 		}
 

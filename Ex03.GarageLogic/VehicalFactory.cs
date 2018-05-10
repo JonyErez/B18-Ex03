@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-	public static class VehicalFactory
+	public class VehicalFactory
 	{
 		public enum eVehicalTypes
 		{
@@ -15,17 +15,30 @@ namespace Ex03.GarageLogic
 			GasMotorcycle
 		}
 
-		public Vehical CreateVehical(eVehicalTypes i_VehicalType)
+		public static BaseClasses.Vehical CreateVehical(eVehicalTypes i_VehicalType, string i_Model, string i_LicensePlate)
 		{
-			Vehical newVehical;
+			BaseClasses.Vehical newVehical = null;
+
 			switch (i_VehicalType)
 			{
 				case eVehicalTypes.ElectricCar:
-					newVehical = new ElectricVehical();
+					newVehical = new VehicalTypes.Car(i_Model, i_LicensePlate);
 					break;
-					case eVehicalTypes.
-
+				case eVehicalTypes.GasCar:
+					newVehical = new VehicalTypes.Car(i_Model, i_LicensePlate);
+					break;
+				case eVehicalTypes.ElectricMotorcycle:
+					newVehical = new VehicalTypes.Motorcycle(i_Model, i_LicensePlate);
+					break;
+				case eVehicalTypes.GasMotorcycle:
+					newVehical = new VehicalTypes.Motorcycle(i_Model, i_LicensePlate);
+					break;
+				case eVehicalTypes.Truck:
+					newVehical = new VehicalTypes.Truck(i_Model, i_LicensePlate);
+					break;
 			}
+
+			return newVehical;
 		}
 
 	}

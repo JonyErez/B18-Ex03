@@ -11,6 +11,18 @@ namespace Ex03.GarageLogic
 		private Enums.eVehicalStatus m_VehicalStatus;
 		Vehical m_Vehical;
 
+		public override string ToString()
+		{
+			StringBuilder vehicalInformation = new StringBuilder();
+			vehicalInformation.AppendLine(string.Format(@"Owner: {0}
+Phone number: {1}
+Status: {2}
+Vehical information:
+{3}", m_OwnerName, m_OwnerPhone, m_VehicalStatus.ToString(), m_Vehical.ToString()));
+
+			return vehicalInformation.ToString();
+		}
+
 		public string OwnerName
 		{
 			get

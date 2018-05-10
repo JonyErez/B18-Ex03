@@ -37,24 +37,21 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarProperties.cs" />
+    <Compile Include="Base Classes\Engine.cs" />
     <Compile Include="Enums\eColor.cs" />
+    <Compile Include="Enums\eConstants.cs" />
     <Compile Include="Enums\eFuelType.cs" />
-    <Compile Include="Base Classes\ElectricVehical.cs" />
+    <Compile Include="Engine Types\ElectricEngine.cs" />
     <Compile Include="Enums\eLicenceTypes.cs" />
     <Compile Include="Enums\eNumberOfDoors.cs" />
     <Compile Include="Enums\eVehicalStatus.cs" />
     <Compile Include="Garage.cs" />
-    <Compile Include="MotorcycleProperties.cs" />
-    <Compile Include="TruckProperties.cs" />
-    <Compile Include="Vehical Types\ElectricCar.cs" />
-    <Compile Include="Vehical Types\ElectricMotorcycle.cs" />
-    <Compile Include="Vehical Types\GasCar.cs" />
-    <Compile Include="Base Classes\GasVehical.cs" />
+    <Compile Include="Vehical Types\Car.cs" />
+    <Compile Include="Vehical Types\Motorcycle.cs" />
+    <Compile Include="Engine Types\GasEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Base Classes\Vehical.cs" />
-    <Compile Include="Vehical Types\GasMotorcycle.cs" />
     <Compile Include="Vehical Types\Truck.cs" />
     <Compile Include="VehicalFactory.cs" />
     <Compile Include="VehicalInformation.cs" />

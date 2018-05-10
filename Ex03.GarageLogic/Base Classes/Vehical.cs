@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ex03.GarageLogic
+namespace Ex03.GarageLogic.BaseClasses
 {
 	public abstract class Vehical
 	{
+		private Engine m_Engine = null;
 		private readonly string r_Model;
 		private readonly string r_LicensePlate;
 		private float m_EnergyLeft;
@@ -23,7 +24,9 @@ namespace Ex03.GarageLogic
 Model: {1}
 Energy left: {2:p}
 Wheels:
-{3}", r_LicensePlate, r_Model, m_EnergyLeft, getWheelDetails());
+{3}
+Engine:
+{4}", r_LicensePlate, r_Model, m_EnergyLeft, getWheelDetails(), m_Engine.ToString());
 		}
 
 		private string getWheelDetails()
@@ -39,6 +42,19 @@ Wheels:
 			}
 
 			return wheelsDetails.ToString();
+		}
+
+		public Engine Engine
+		{
+			get
+			{
+				return m_Engine;
+			}
+
+			set
+			{
+				m_Engine = value;
+			}
 		}
 
 		public string Model
@@ -82,6 +98,9 @@ Wheels:
 			}
 		}
 
-		protected abstract void UpdateEnergyPercentLeft();
+		public void UpdateEnergyPercentLeft()
+		{
+			m_EnergyLeft = m_Engine.CurrentCapacity / m_Engine.MaxCapacity;
+		}
 	}
 }
