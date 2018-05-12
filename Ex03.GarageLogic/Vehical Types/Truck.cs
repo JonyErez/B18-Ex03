@@ -6,8 +6,8 @@ namespace Ex03.GarageLogic.VehicalTypes
 {
 	public class Truck : BaseClasses.Vehical
 	{
-		private float r_CargoholdVolume;
-		private bool r_IsCargoholdCooled;
+		private float m_CargoholdVolume;
+		private bool m_IsCargoholdCooled;
 
 		internal Truck(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
 		{
@@ -17,7 +17,18 @@ namespace Ex03.GarageLogic.VehicalTypes
 		{
 			get
 			{
-				return r_CargoholdVolume;
+				return m_CargoholdVolume;
+			}
+			set
+			{
+				if(m_CargoholdVolume < 0)
+				{
+					throw new ArgumentException("Value is negative! Please enter a vaid input.");
+				}
+				else
+				{
+					m_CargoholdVolume = value;
+				}
 			}
 		}
 
@@ -25,7 +36,11 @@ namespace Ex03.GarageLogic.VehicalTypes
 		{
 			get
 			{
-				return r_IsCargoholdCooled;
+				return m_IsCargoholdCooled;
+			}
+			set
+			{
+				m_IsCargoholdCooled = value;
 			}
 		}
 

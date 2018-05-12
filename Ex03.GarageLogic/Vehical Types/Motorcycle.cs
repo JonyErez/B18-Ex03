@@ -6,8 +6,8 @@ namespace Ex03.GarageLogic.VehicalTypes
 {
 	public class Motorcycle : BaseClasses.Vehical
 	{
-		private Enums.eLicenseTypes r_LicenseType;             
-		private int r_EngineVolume;
+		private Enums.eLicenseTypes m_LicenseType;             
+		private int m_EngineVolume;
 
 		internal Motorcycle(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
 		{
@@ -17,7 +17,12 @@ namespace Ex03.GarageLogic.VehicalTypes
 		{
 			get
 			{
-				return r_LicenseType;
+				return m_LicenseType;
+			}
+
+			set
+			{
+				m_LicenseType = value;
 			}
 		}
 
@@ -25,7 +30,19 @@ namespace Ex03.GarageLogic.VehicalTypes
 		{
 			get
 			{
-				return r_EngineVolume;
+				return m_EngineVolume;
+			}
+
+			set
+			{
+				if (value < 0)
+				{
+					throw new ArgumentException("Value is negative! Please enter a vaid input.");
+				}
+				else
+				{
+					m_EngineVolume = value;
+				}
 			}
 		}
 		

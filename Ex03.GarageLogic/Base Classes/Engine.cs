@@ -31,9 +31,13 @@ namespace Ex03.GarageLogic.BaseClasses
 
 			set
 			{
-				if (value < 0 || value > r_MaxCapacity)
+				if (value > r_MaxCapacity)
 				{
 					throw new ValueOutOfRangeException(0, r_MaxCapacity, string.Format("Value out of range! Please enter a value between 0 and {0}!", r_MaxCapacity));
+				}
+				else if(value < 0)
+				{
+					throw new ArgumentException(string.Format("Value is negative! Please enter a value between 0 and {0}!", r_MaxCapacity));
 				}
 				else
 				{

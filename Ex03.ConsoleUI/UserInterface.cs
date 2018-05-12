@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Ex03.GarageLogic;
- 
+using Ex03.GarageLogic.Enums;
 
 namespace Ex03.ConsoleUI
 {
@@ -233,18 +233,118 @@ Press 8 to Exit.");
 
 		private void askCarDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
+			Console.Clear();
+			GarageLogic.VehicalTypes.Car car = i_Vehical as GarageLogic.VehicalTypes.Car;
+			askForColor(car);
+			askForNumberOfDoors(car);
+		}
 
-		} //TODO
+		private void printEnum<T>()
+		{
+			foreach(var value in Enum.GetValues(typeof(T)))
+			{
+				Console.WriteLine("{0}. {1}", (int)value, (T)value);
+			}
+		} 
+
+		private void askForNumberOfDoors(GarageLogic.VehicalTypes.Car i_Car)
+		{
+			Console.WriteLine("Please choose a number of doors for your car:");
+			printEnum<eNumberOfDoors>();
+			i_Car.NumberOfDoors = (eNumberOfDoors)enumParse<eNumberOfDoors>();
+		}
+
+		private void askForColor(GarageLogic.VehicalTypes.Car i_Car)
+		{
+			Console.WriteLine("Please choose a color for your car:");
+			printEnum<eColor>();
+			i_Car.Color = (eColor)enumParse<eColor>();
+		}
 
 		private void askMotorcycleDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
+			Console.Clear();
+			GarageLogic.VehicalTypes.Motorcycle motorcycle = i_Vehical as GarageLogic.VehicalTypes.Motorcycle;
+			askLicenseTypes(motorcycle);
+			askEngineVolume(motorcycle);
+		} 
 
-		} //TODO
+		private void askLicenseTypes(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
+		{
+			Console.WriteLine("Please choose a license type for your motorcycle:");
+			printEnum<eLicenseTypes>();
+			i_Motorcycle.LicenseType = (eLicenseTypes)enumParse<eLicenseTypes>();
+		}
+
+		private void askEngineVolume(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
+		{
+			while(true)
+			{
+				try
+				{
+					Console.WriteLine("Please choose an engine volume for your motorcycle:");
+					i_Motorcycle.EngineVolume = int.Parse(Console.ReadLine());
+					break;
+				}
+				catch(FormatException ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+				catch(ArgumentException ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
+		}
 
 		private void askTruckDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
+			Console.Clear();
+			GarageLogic.VehicalTypes.Truck truck = i_Vehical as GarageLogic.VehicalTypes.Truck;
+			askCargoholdVolume(truck);
+			askIfCargoholdCooled(truck);
+		}
 
-		} //TODO
+		private void askIfCargoholdCooled(GarageLogic.VehicalTypes.Truck i_Truck)
+		{
+
+			while(true)
+			{
+				Console.WriteLine("Please enter is cargohold cooled Y/N:");
+				string cargoholdCooledInput = Console.ReadLine();
+				if (cargoholdCooledInput.Equals("Y") || (cargoholdCooledInput.Equals("y")))
+				{
+					i_Truck.IsCargoholdCooled = true;
+					break;
+				}
+				else if (cargoholdCooledInput.Equals("N") || (cargoholdCooledInput.Equals("n")))
+				{
+					i_Truck.IsCargoholdCooled = false;
+					break;
+				}
+			}
+		}
+
+		private void askCargoholdVolume(GarageLogic.VehicalTypes.Truck i_Truck)
+		{
+			while(true)
+			{
+				try
+				{
+					Console.Write("Please enter the cargohold volume:");
+					i_Truck.CargoholdVolume = float.Parse(Console.ReadLine());
+					break;
+				}
+				catch(FormatException ex)
+				{
+					Console.Write(ex.Message);
+				}
+				catch (ArgumentException ex)
+				{
+					Console.Write(ex.Message);
+				}
+			}
+		}
 
 		private void askWheelsDetails(List<Wheel> i_Wheels)
 		{
