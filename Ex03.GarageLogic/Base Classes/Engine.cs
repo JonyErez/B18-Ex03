@@ -7,7 +7,7 @@ namespace Ex03.GarageLogic.BaseClasses
 	public abstract class Engine
 	{
 		private readonly float r_MaxCapacity;
-		private float m_CurrentCapacity; //rename
+		private float m_CurrentCapacity;
 
 		public Engine(float i_MaxCapacity)
 		{
@@ -31,7 +31,14 @@ namespace Ex03.GarageLogic.BaseClasses
 
 			set
 			{
-				m_CurrentCapacity = value;
+				if (value < 0 || value > r_MaxCapacity)
+				{
+					throw new ValueOutOfRangeException(0, r_MaxCapacity, string.Format("Value out of range! Please enter a value between 0 and {0}!", r_MaxCapacity));
+				}
+				else
+				{
+					m_CurrentCapacity = value;
+				}
 			}
 		}
 

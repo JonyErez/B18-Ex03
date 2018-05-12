@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
 		private string m_OwnerName;
 		private string m_OwnerPhone;
 		private Enums.eVehicalStatus m_VehicalStatus;
-		Vehical m_Vehical;
+		BaseClasses.Vehical m_Vehical;
 
 		public override string ToString()
 		{
@@ -62,7 +62,7 @@ Vehical information:
 			}
 		}
 
-		public Vehical Vehical
+		public BaseClasses.Vehical Vehical
 		{
 			get
 			{

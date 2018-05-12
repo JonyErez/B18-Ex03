@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
 	{
 		public enum eVehicalTypes
 		{
-			Truck,
+			GasTruck = 1,
 			ElectricCar,
 			GasCar,
 			ElectricMotorcycle,
@@ -25,31 +25,57 @@ namespace Ex03.GarageLogic
 				case eVehicalTypes.ElectricCar:
 					newVehical = new VehicalTypes.Car(i_Model, i_LicensePlate);
 					newVehical.Engine = new EngineTypes.ElectricEngine(eConstants.CarMaxBattary);
-					newVehical.Wheels = new List<Wheel>(eConstants.CarWheels);
+					makeCarWheels(newVehical);
 					break;
 				case eVehicalTypes.GasCar:
 					newVehical = new VehicalTypes.Car(i_Model, i_LicensePlate);
 					newVehical.Engine = new EngineTypes.GasEngine(eConstants.CarFuelType, eConstants.CarMaxGas);
-					newVehical.Wheels = new List<Wheel>(eConstants.CarWheels); //cpypaste
+					makeCarWheels(newVehical);
 					break;
 				case eVehicalTypes.ElectricMotorcycle:
 					newVehical = new VehicalTypes.Motorcycle(i_Model, i_LicensePlate);
 					newVehical.Engine = new EngineTypes.ElectricEngine(eConstants.MotorcycleMaxBattary);
-					newVehical.Wheels = new List<Wheel>(eConstants.MotorcycleWheels);
+					makeMotorcycleWheels(newVehical);
 					break;
 				case eVehicalTypes.GasMotorcycle:
 					newVehical = new VehicalTypes.Motorcycle(i_Model, i_LicensePlate);
 					newVehical.Engine = new EngineTypes.GasEngine(eConstants.MotorcycleFuelType, eConstants.MotorcycleMaxGas);
-					newVehical.Wheels = new List<Wheel>(eConstants.MotorcycleWheels); //cpypaste
+					makeMotorcycleWheels(newVehical);
 					break;
-				case eVehicalTypes.Truck:
+				case eVehicalTypes.GasTruck:
 					newVehical = new VehicalTypes.Truck(i_Model, i_LicensePlate);
 					newVehical.Engine = new EngineTypes.GasEngine(eConstants.TruckFuelType, eConstants.TruckMaxGas);
-					newVehical.Wheels = new List<Wheel>(eConstants.TruckWheels); 
+					makeTruckWheels(newVehical);
 					break;
 			}
 
 			return newVehical;
+		}
+
+		private static void makeCarWheels(BaseClasses.Vehical i_Vehical)
+		{
+			i_Vehical.Wheels = new List<Wheel>(eConstants.CarWheels);
+			makeWheels(i_Vehical.Wheels, eConstants.CarMaxPSI);
+		}
+
+		private static void makeMotorcycleWheels(BaseClasses.Vehical i_Vehical)
+		{
+			i_Vehical.Wheels = new List<Wheel>(eConstants.CarWheels);
+			makeWheels(i_Vehical.Wheels, eConstants.MotorcycleMaxPSI);
+		}
+
+		private static void makeTruckWheels(BaseClasses.Vehical i_Vehical)
+		{
+			i_Vehical.Wheels = new List<Wheel>(eConstants.TruckMaxPSI);
+			makeWheels(i_Vehical.Wheels, eConstants.CarMaxPSI);
+		}
+
+		private static void makeWheels(List<Wheel> i_Wheels, float i_MaxPSI)
+		{
+			for(int i=0; i<i_Wheels.Capacity; i++)
+			{
+				i_Wheels.Add(new Wheel(i_MaxPSI));
+			}
 		}
 
 	}

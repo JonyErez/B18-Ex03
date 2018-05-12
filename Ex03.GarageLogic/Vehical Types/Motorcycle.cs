@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Ex03.GarageLogic.VehicalTypes
 {
-	class Motorcycle : BaseClasses.Vehical
+	public class Motorcycle : BaseClasses.Vehical
 	{
 		private Enums.eLicenseTypes r_LicenseType;             
 		private int r_EngineVolume;
 
-		public Motorcycle(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
+		internal Motorcycle(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
 		{
 		}
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic.EngineTypes
 {
-	internal class ElectricEngine : BaseClasses.Engine
+	public class ElectricEngine : BaseClasses.Engine
 	{
 		public ElectricEngine(float i_MaxBattaryTime) : base (i_MaxBattaryTime)
 		{

@@ -4,28 +4,32 @@ namespace Ex03.GarageLogic
 {
 	public class Wheel
 	{
-		private		readonly	string	r_Manufacturer;
+		private					string	i_Manufacturer;
 		private		readonly	float	r_MaxPSI;
 		private					float	m_CurrentPSI;
 
-		public Wheel (string i_Manufacturer, float i_MaxPSI, float i_CurrentPSI)
+		public Wheel (float i_MaxPSI)
 		{
-			r_Manufacturer = i_Manufacturer;
 			r_MaxPSI = i_MaxPSI;
-			m_CurrentPSI = i_CurrentPSI;
 		}
 
 		public override string ToString()
 		{
 			return string.Format(@"Manufacor: {0}
 Max PSI: {1}
-Current PSI: {2}", r_Manufacturer, r_MaxPSI, m_CurrentPSI);
+Current PSI: {2}", i_Manufacturer, r_MaxPSI, m_CurrentPSI);
 		}
+
 		public	string	Manufacturer
 		{
 			get
 			{
-				return r_Manufacturer;
+				return i_Manufacturer;
+			}
+
+			set
+			{
+				i_Manufacturer = value;
 			}
 		}
 
@@ -34,6 +38,18 @@ Current PSI: {2}", r_Manufacturer, r_MaxPSI, m_CurrentPSI);
 			get
 			{
 				return m_CurrentPSI;
+			}
+
+			set
+			{
+				if (value < 0 || value > r_MaxPSI)
+				{
+					throw new ValueOutOfRangeException(0, r_MaxPSI, string.Format("Value out of range! Please enter a value between 0 and {0}!", r_MaxPSI));
+				}
+				else
+				{
+					m_CurrentPSI = value;
+				}
 			}
 		}
 

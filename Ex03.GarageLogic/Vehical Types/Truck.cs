@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Ex03.GarageLogic.VehicalTypes
 {
-	class Truck : BaseClasses.Vehical
+	public class Truck : BaseClasses.Vehical
 	{
 		private float r_CargoholdVolume;
 		private bool r_IsCargoholdCooled;
 
-		public Truck(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
+		internal Truck(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
 		{
 		}
 

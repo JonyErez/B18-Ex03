@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Ex03.GarageLogic.VehicalTypes
 {
-	class Car : BaseClasses.Vehical
+	public class Car : BaseClasses.Vehical
 	{
 		private Enums.eColor r_Color;                      
 		private Enums.eNumberOfDoors r_NumberOfDoors;
 
-		public Car(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
+		internal Car(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
 		{
 		}
 
