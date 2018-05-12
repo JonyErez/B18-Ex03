@@ -98,5 +98,10 @@ namespace Ex03.GarageLogic
 			VehicalInformation VehicalToPrintDetails = FindVehical(i_LicensePlate);
 			return VehicalToPrintDetails.ToString();
 		}
+
+		public bool DoesVehicalExist(string i_LicensePlate)
+		{
+			return Vehicals.ContainsKey(i_LicensePlate.GetHashCode());
+		}
 	}
 }

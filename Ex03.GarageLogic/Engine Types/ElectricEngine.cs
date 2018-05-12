@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic.EngineTypes
 {
 	internal class ElectricEngine : BaseClasses.Engine
 	{
-		public ElectricEngine(string i_Model, string i_LicensePlate, float i_MaxBattaryTime) : base (i_MaxBattaryTime)
+		public ElectricEngine(float i_MaxBattaryTime) : base (i_MaxBattaryTime)
 		{
 		}
 

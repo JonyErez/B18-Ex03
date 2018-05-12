@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Ex03.GarageLogic.EngineTypes
 {
-	internal abstract class GasEngine : BaseClasses.Engine
+	internal class GasEngine : BaseClasses.Engine
 	{
 		private readonly Enums.eFuelType r_FuelType;
 		//private readonly float r_MaxGasTankCapacity;
 		//private float m_CurrentGasVolume;
 
-		public GasEngine(string i_Model, string i_LicensePlate, Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity) : base(i_MaxGasTankCapacity)
+		public GasEngine(Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity) : base(i_MaxGasTankCapacity)
 		{
 			r_FuelType = i_FuelType;
 		}
