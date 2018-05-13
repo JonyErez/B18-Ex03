@@ -4,11 +4,20 @@ using System.Text;
 
 namespace Ex03.ConsoleUI
 {
-	class Program
+	public class Program
 	{
-		static void Main()
+		public static void Main()
 		{
+			RunGarage();
+			Console.ReadLine();
 		}
 		
+		private static void RunGarage()
+		{
+			UserInterface UI = new UserInterface();
+			UI.PrintMenu();
+			Console.WriteLine(UI.getMenuSelection());
+			
+		}
 	}
 }

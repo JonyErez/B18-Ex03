@@ -41,7 +41,7 @@ Press 8 to Exit.");
 		{
 			eMenuOptions menuOption;
 
-			menuOption = (eMenuOptions)enumParse<eMenuOptions>();
+				menuOption = (eMenuOptions)enumParse<eMenuOptions>();
 
 			return menuOption;
 		}
@@ -77,7 +77,6 @@ Press 8 to Exit.");
 
 			}
 		}
-
 		
 		private void addVehicalToTheGarage(string i_LicensePlate)
 		{
@@ -131,8 +130,12 @@ Press 8 to Exit.");
 			{
 				try
 				{
-					Console.WriteLine("Please enter your desired option: ");
+					Console.Write("Please enter your desired option: ");
 					parsedEnum = (T)Enum.Parse(typeof(T), Console.ReadLine());
+					if (!Enum.IsDefined(typeof(T), parsedEnum))
+					{
+						throw new ArgumentException();
+					}
 					break;
 				}
 				catch (ArgumentException)
