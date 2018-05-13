@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
 			VehicalInformation VehicalToFind;
 			if (!Vehicals.TryGetValue(i_LicensePlate.GetHashCode(), out VehicalToFind))
 			{
-				throw new Exception(string.Format("No vehical that matches the license plate '{0}' in the garage!", i_LicensePlate));
+				throw new ArgumentException(string.Format("No vehical that matches the license plate '{0}' in the garage!", i_LicensePlate));
 			}
 			return VehicalToFind;
 		}

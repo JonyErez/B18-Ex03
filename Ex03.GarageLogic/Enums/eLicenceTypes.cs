@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic.Enums
 {
 	public enum eLicenseTypes
 	{
-		A,
+		A = 1,
 		A1,
 		B1,
 		B2

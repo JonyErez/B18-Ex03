@@ -12,81 +12,252 @@ namespace Ex03.ConsoleUI
 
 		public enum eMenuOptions
 		{
+			[System.ComponentModel.Description("Add vehical to garage")]
 			NewVehical = 1,
-			DisplayListOfVehicals = 2,
-			ChangeStatus = 3,
-			InflateWheels = 4,
-			RefuelVehical = 5,
-			RechargeVehical = 6,
-			DisplayVehicalDetails = 7,
-			Exit = 8
+			[System.ComponentModel.Description("Display garage vehials license plates")]
+			DisplayListOfVehicals,
+			[System.ComponentModel.Description("Change specific vehicals status")]
+			ChangeStatus,
+			[System.ComponentModel.Description("Inflate a vehicals wheels")]
+			InflateWheels,
+			[System.ComponentModel.Description("Refuel a gas vehical")]
+			RefuelVehical,
+			[System.ComponentModel.Description("Recharge an electrical vehical")]
+			RechargeVehical,
+			[System.ComponentModel.Description("Display a specific vehicals full information")]
+			DisplayVehicalDetails,
+			[System.ComponentModel.Description("Exit the garage")]
+			Exit
 		} 
-
-		public void PrintMenu()
-		{
-			string menu = string.Format(@"Welcome to Joniv's garage!
-Press 1 to enter a new vehical to the garage.
-Press 2 to dislay the list of vehicals in the garage.
-Press 3 to change status for a specific vehical.
-Press 4 to infalte wheels for a specific vehical.
-Press 5 to refuel gas vehical.
-Press 6 to recharge electric vehical.
-Press 7 to display details for a specific vehical.
-Press 8 to Exit.");
-
-			Console.WriteLine(menu);
-		}
 
 		public eMenuOptions getMenuSelection()
 		{
 			eMenuOptions menuOption;
 
-				menuOption = (eMenuOptions)enumParse<eMenuOptions>();
+			Console.Clear();
+			Console.WriteLine("Welcome to Joniv's garage!");
+			menuOption = (eMenuOptions)enumParse<eMenuOptions>();
 
 			return menuOption;
 		}
 
-		public void MenuOperations(eMenuOptions i_UserSelectedAction)
+		public bool MenuOperations(eMenuOptions i_UserSelectedAction)
 		{
+			bool exitGarage = false;
+
 			switch(i_UserSelectedAction)
 			{
 				case eMenuOptions.NewVehical:
-					
+					addVehicalToTheGarage();
 					break;
 				case eMenuOptions.DisplayListOfVehicals:
-
+					displayListOfVehicals();
 					break;
 				case eMenuOptions.ChangeStatus:
-
+					changeVehicalStatus();
 					break;
 				case eMenuOptions.InflateWheels:
-
+					inflateWheels();
 					break;
 				case eMenuOptions.RefuelVehical:
-
+					refuelVehical();
 					break;
 				case eMenuOptions.RechargeVehical:
-
+					rechargeVehical();
 					break;
 				case eMenuOptions.DisplayVehicalDetails:
-
+					printVehicalInformation();
 					break;
 				case eMenuOptions.Exit:
-
+					exitGarage = true;
 					break;
 
 			}
+
+			return exitGarage;
 		}
-		
-		private void addVehicalToTheGarage(string i_LicensePlate)
+
+		private void displayListOfVehicals()
+		{
+			bool filter;
+			List<string> licensePlates;
+
+			Console.Clear();
+			Console.Write("Do you wish to filter by car status? ");
+			filter = askUserYesNoInput();
+			if (filter)
+			{
+				licensePlates = m_Garage.ListVehicals((eVehicalStatus)enumParse<eVehicalStatus>());
+			}
+			else
+			{
+				licensePlates = m_Garage.ListVehicals();
+			}
+
+			if (licensePlates.Count != 0)
+			{
+				foreach (string licensePlate in licensePlates)
+				{
+					Console.WriteLine(licensePlate);
+				}
+			}
+			else
+			{
+				Console.WriteLine("No vehicals found!");
+			}
+
+			returnToMenuPrompt();
+		}
+
+		private void changeVehicalStatus()
+		{
+			VehicalInformation vehical;
+
+			Console.Clear();
+			try
+			{
+				vehical = m_Garage.FindVehical(askLicensePlate());
+				Console.WriteLine("Please select your desired status:");
+				vehical.VehicalStatus = (eVehicalStatus)enumParse<eVehicalStatus>();
+			}
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			finally
+			{
+				returnToMenuPrompt();
+			}
+		}
+
+		private void inflateWheels()
+		{
+			VehicalInformation vehical;
+
+			Console.Clear();
+			try
+			{
+				vehical = m_Garage.FindVehical(askLicensePlate());
+				foreach(Wheel currentWheel in vehical.Vehical.Wheels)
+				{
+					currentWheel.Inflate(currentWheel.MaxPSI - currentWheel.CurrentPSI);
+				}
+				Console.WriteLine("All the vehicals wheels were successfully inflated!");
+			}
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			finally
+			{
+				returnToMenuPrompt();
+			}
+		}
+
+		private void refuelVehical()
+		{
+			VehicalInformation vehical;
+			eFuelType fuelType;
+
+			Console.Clear();
+			try
+			{
+				vehical = m_Garage.FindVehical(askLicensePlate());
+				GarageLogic.EngineTypes.GasEngine gasVehicalEngine = vehical.Vehical.Engine as GarageLogic.EngineTypes.GasEngine;
+				if (gasVehicalEngine != null)
+				{
+					Console.WriteLine("Select the desired fuel type to use: ");
+					fuelType = (eFuelType)enumParse<eFuelType>();
+					Console.WriteLine("Enter how much fuel do you wish to fill (liters): ");
+					gasVehicalEngine.FillGas(fuelType, askUserForFloat());
+					Console.WriteLine("Car was successfully refueled!");
+					vehical.Vehical.UpdateEnergyPercentLeft();
+				}
+				else
+				{
+					Console.WriteLine("Cannot refuel a vehical that does not run on gas!");
+				}
+			}
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			catch (ValueOutOfRangeException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			finally
+			{
+				returnToMenuPrompt();
+			}
+		}
+
+		private float askUserForFloat()
+		{
+			float userInput;
+
+			while (true)
+			{
+				try
+				{
+					userInput = float.Parse(Console.ReadLine());
+					break;
+				}
+				catch (FormatException ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
+
+			return userInput;
+		}
+
+		private void rechargeVehical()
+		{
+			VehicalInformation vehical;
+
+			Console.Clear();
+			try
+			{
+				vehical = m_Garage.FindVehical(askLicensePlate());
+				GarageLogic.EngineTypes.ElectricEngine electricVehicalEngine = vehical.Vehical.Engine as GarageLogic.EngineTypes.ElectricEngine;
+				if (electricVehicalEngine != null)
+				{
+					Console.WriteLine("Enter how much time do you wish to recharge for (hours): ");
+					electricVehicalEngine.ChargeVehical(askUserForFloat());
+					Console.WriteLine("Car was successfully recharged!");
+					vehical.Vehical.UpdateEnergyPercentLeft();
+				}
+				else
+				{
+					Console.WriteLine("Cannot recharge a vehical that does not run on electricity!");
+				}
+			}
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			catch (ValueOutOfRangeException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			finally
+			{
+				returnToMenuPrompt();
+			}
+		}
+
+		private void addVehicalToTheGarage()
 		{
 			bool doesVehicalExist = false;
 			VehicalFactory.eVehicalTypes vehicalType;
-			
-			doesVehicalExist = m_Garage.DoesVehicalExist(i_LicensePlate);	
+
+			Console.Clear();
+			string licensePlate = askLicensePlate();
+			doesVehicalExist = m_Garage.DoesVehicalExist(licensePlate);	
 			if(doesVehicalExist)
 			{
-				m_Garage.ChangeVehicalStatus(i_LicensePlate, GarageLogic.Enums.eVehicalStatus.InRepair);
+				m_Garage.ChangeVehicalStatus(licensePlate, GarageLogic.Enums.eVehicalStatus.InRepair);
 				Console.WriteLine("The vehical license plate is already in the system, status changed to in repair.");
 			}
 			else
@@ -95,15 +266,15 @@ Press 8 to Exit.");
 
 				Console.Clear();
 				Console.WriteLine("Please choose the type of vehical you want to add");
-				PrintVehicalTypes();
 				vehicalType = (VehicalFactory.eVehicalTypes)enumParse<VehicalFactory.eVehicalTypes>();
 				VehicalInformation newVehical = new VehicalInformation();
 				vehicalModel = getVehicalModel();
-				newVehical.Vehical = VehicalFactory.CreateVehical(vehicalType, vehicalModel, i_LicensePlate);
+				newVehical.Vehical = VehicalFactory.CreateVehical(vehicalType, vehicalModel, licensePlate);
 				askVehicalDetails(newVehical);
 				m_Garage.AddVehical(newVehical);
 			}
 
+			returnToMenuPrompt();
 		}
 
 		private string getVehicalModel() //TODO
@@ -113,16 +284,6 @@ Press 8 to Exit.");
 			return Console.ReadLine();
 		}
 
-		private void PrintVehicalTypes() //TODO
-		{
-			Console.WriteLine(string.Format(@"Vehical Types:
-1. Gas Truck
-2. Electric Car
-3. Gas Car
-4. Electric Motorcycle
-5. Gas Motorcycle"));
-		}
-
 		private object enumParse<T>()
 		{
 			T parsedEnum;
@@ -130,6 +291,7 @@ Press 8 to Exit.");
 			{
 				try
 				{
+					printEnum<T>();
 					Console.Write("Please enter your desired option: ");
 					parsedEnum = (T)Enum.Parse(typeof(T), Console.ReadLine());
 					if (!Enum.IsDefined(typeof(T), parsedEnum))
@@ -200,12 +362,12 @@ Press 8 to Exit.");
 			System.Text.RegularExpressions.Regex nameValidation = new System.Text.RegularExpressions.Regex(@"^[a-zA-Z]{1,20}$");
 
 			Console.Clear();
-			Console.Write("Please enter the car owners name (2-20 characters): ");
+			Console.Write("Please enter the car owners name (1-20 characters): ");
 			ownerName = Console.ReadLine();
 
 			while (!nameValidation.IsMatch(ownerName))
 			{
-				Console.Write("Please enter a valid name (2-20 characters): ");
+				Console.Write("Please enter a valid name (1-20 characters): ");
 				ownerName = Console.ReadLine();
 			}
 
@@ -224,6 +386,10 @@ Press 8 to Exit.");
 					break;
 				}
 				catch (GarageLogic.ValueOutOfRangeException ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+				catch (ArgumentException ex)
 				{
 					Console.WriteLine(ex.Message);
 				}
@@ -246,21 +412,19 @@ Press 8 to Exit.");
 		{
 			foreach(var value in Enum.GetValues(typeof(T)))
 			{
-				Console.WriteLine("{0}. {1}", (int)value, (T)value);
+				Console.WriteLine("{0}. {1}", (int)value, GetEnumDescription((Enum)value));
 			}
 		} 
 
 		private void askForNumberOfDoors(GarageLogic.VehicalTypes.Car i_Car)
 		{
 			Console.WriteLine("Please choose a number of doors for your car:");
-			printEnum<eNumberOfDoors>();
 			i_Car.NumberOfDoors = (eNumberOfDoors)enumParse<eNumberOfDoors>();
 		}
 
 		private void askForColor(GarageLogic.VehicalTypes.Car i_Car)
 		{
 			Console.WriteLine("Please choose a color for your car:");
-			printEnum<eColor>();
 			i_Car.Color = (eColor)enumParse<eColor>();
 		}
 
@@ -275,7 +439,6 @@ Press 8 to Exit.");
 		private void askLicenseTypes(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
 		{
 			Console.WriteLine("Please choose a license type for your motorcycle:");
-			printEnum<eLicenseTypes>();
 			i_Motorcycle.LicenseType = (eLicenseTypes)enumParse<eLicenseTypes>();
 		}
 
@@ -285,7 +448,7 @@ Press 8 to Exit.");
 			{
 				try
 				{
-					Console.WriteLine("Please choose an engine volume for your motorcycle:");
+					Console.Write("Please choose an engine volume for your motorcycle: ");
 					i_Motorcycle.EngineVolume = int.Parse(Console.ReadLine());
 					break;
 				}
@@ -310,22 +473,8 @@ Press 8 to Exit.");
 
 		private void askIfCargoholdCooled(GarageLogic.VehicalTypes.Truck i_Truck)
 		{
-
-			while(true)
-			{
-				Console.WriteLine("Please enter is cargohold cooled Y/N:");
-				string cargoholdCooledInput = Console.ReadLine();
-				if (cargoholdCooledInput.Equals("Y") || (cargoholdCooledInput.Equals("y")))
-				{
-					i_Truck.IsCargoholdCooled = true;
-					break;
-				}
-				else if (cargoholdCooledInput.Equals("N") || (cargoholdCooledInput.Equals("n")))
-				{
-					i_Truck.IsCargoholdCooled = false;
-					break;
-				}
-			}
+			Console.WriteLine("Is cargohold cooled?");
+			i_Truck.IsCargoholdCooled = askUserYesNoInput();				
 		}
 
 		private void askCargoholdVolume(GarageLogic.VehicalTypes.Truck i_Truck)
@@ -334,7 +483,7 @@ Press 8 to Exit.");
 			{
 				try
 				{
-					Console.Write("Please enter the cargohold volume:");
+					Console.Write("Please enter the cargohold volume: ");
 					i_Truck.CargoholdVolume = float.Parse(Console.ReadLine());
 					break;
 				}
@@ -352,6 +501,9 @@ Press 8 to Exit.");
 		private void askWheelsDetails(List<Wheel> i_Wheels)
 		{
 			int i = 1;
+
+			Console.Clear();
+			Console.WriteLine("Vehical wheels information:");
 			foreach (Wheel wheel in i_Wheels)
 			{
 				Console.WriteLine(string.Format("Wheel {0}", i));
@@ -383,10 +535,80 @@ Press 8 to Exit.");
 			i_Wheel.Manufacturer = Console.ReadLine();
 
 			}
+
+		public string askLicensePlate()
+		{
+			Console.Write("Please enter the vehicals license plate: ");
+			return Console.ReadLine();
+		}
 		
 		private void updateEnergyPercentLeft(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
 			i_Vehical.UpdateEnergyPercentLeft();
+		}
+
+		private void printVehicalInformation()
+		{
+			VehicalInformation vehical;
+
+			Console.Clear();
+			try
+			{
+				vehical = m_Garage.FindVehical(askLicensePlate());
+				Console.WriteLine(vehical.ToString());
+			}
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			finally
+			{
+				returnToMenuPrompt();
+			}
+		}
+
+		private bool askUserYesNoInput()
+		{
+			bool userAnswer;
+			string userInput;
+
+			while (true)
+			{
+				Console.Write("Please select yes or no [Y/N]: ");
+				userInput = Console.ReadLine();
+				if (char.ToLower(userInput[0]) == 'y' && userInput.Length == 1)
+				{
+					userAnswer = true;
+					break;
+				}
+				else if (char.ToLower(userInput[0]) == 'n' && userInput.Length == 1)
+				{
+					userAnswer = false;
+					break;
+				}
+				Console.WriteLine("Invalid selection!");
+			}
+
+			return userAnswer;
+		}
+
+		private void returnToMenuPrompt()
+		{
+			Console.Write("{0}Press 'Enter' to return to the menu.", Environment.NewLine);
+			Console.ReadLine();
+		}
+
+		private string GetEnumDescription(Enum value)
+		{
+			System.Reflection.FieldInfo fi = value.GetType().GetField(value.ToString());
+
+			System.ComponentModel.DescriptionAttribute[] attributes =
+				(System.ComponentModel.DescriptionAttribute[])fi.GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false);
+
+			if (attributes != null && attributes.Length > 0)
+				return attributes[0].Description;
+			else
+				return value.ToString();
 		}
 	}
 }

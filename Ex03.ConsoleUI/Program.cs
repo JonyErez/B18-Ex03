@@ -15,9 +15,7 @@ namespace Ex03.ConsoleUI
 		private static void RunGarage()
 		{
 			UserInterface UI = new UserInterface();
-			UI.PrintMenu();
-			Console.WriteLine(UI.getMenuSelection());
-			
+			while (!UI.MenuOperations(UI.getMenuSelection()));
 		}
 	}
 }

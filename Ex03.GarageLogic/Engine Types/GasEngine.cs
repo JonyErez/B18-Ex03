@@ -7,8 +7,6 @@ namespace Ex03.GarageLogic.EngineTypes
 	public class GasEngine : BaseClasses.Engine
 	{
 		private readonly Enums.eFuelType r_FuelType;
-		//private readonly float r_MaxGasTankCapacity;
-		//private float m_CurrentGasVolume;
 
 		public GasEngine(Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity) : base(i_MaxGasTankCapacity)
 		{
@@ -17,7 +15,7 @@ namespace Ex03.GarageLogic.EngineTypes
 
 		public override string ToString()
 		{
-			StringBuilder gasVehicalDetails = new StringBuilder(base.ToString());
+			StringBuilder gasVehicalDetails = new StringBuilder();
 			gasVehicalDetails.AppendLine(string.Format(@"Fuel type: {0}
 Max gas tank capacity: {1}L
 Current gas volume: {2}L", r_FuelType.ToString(), MaxCapacity, CurrentCapacity));
@@ -37,7 +35,7 @@ Current gas volume: {2}L", r_FuelType.ToString(), MaxCapacity, CurrentCapacity))
 		{
 			if (i_FuelType == r_FuelType)
 			{
-				if (i_GasToFill < 0)
+				if (i_GasToFill >= 0)
 				{
 					if (CurrentCapacity + i_GasToFill <= MaxCapacity)
 					{
@@ -50,12 +48,12 @@ Current gas volume: {2}L", r_FuelType.ToString(), MaxCapacity, CurrentCapacity))
 				}
 				else
 				{
-					throw new ArgumentOutOfRangeException("i_GasToFill", i_GasToFill, "The ammount of gas to fill is negative!");
+					throw new ArgumentOutOfRangeException("The ammount of gas to fill is negative!");
 				}
 			}
 			else
 			{
-				throw new ArgumentOutOfRangeException("i_FuelType", i_FuelType, "Wrong fuel type for vehical!");
+				throw new ArgumentOutOfRangeException("Wrong fuel type for vehical!");
 			}
 		}
 	}

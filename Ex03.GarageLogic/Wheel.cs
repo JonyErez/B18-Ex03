@@ -63,7 +63,7 @@ Current PSI: {2}", i_Manufacturer, r_MaxPSI, m_CurrentPSI);
 
 		public	void	Inflate(float i_AirToFill)
 		{
-			if (i_AirToFill < 0)
+			if (i_AirToFill >= 0)
 			{
 				if (m_CurrentPSI + i_AirToFill <= r_MaxPSI)
 				{

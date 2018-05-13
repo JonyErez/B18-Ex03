@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic.VehicalTypes
 			}
 			set
 			{
-				if(m_CargoholdVolume < 0)
+				if(value < 0)
 				{
 					throw new ArgumentException("Value is negative! Please enter a vaid input.");
 				}

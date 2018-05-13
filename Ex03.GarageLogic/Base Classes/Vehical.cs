@@ -23,6 +23,7 @@ namespace Ex03.GarageLogic.BaseClasses
 			return string.Format(@"License plate: {0}
 Model: {1}
 Energy left: {2:p}
+
 Wheels:
 {3}
 Engine:

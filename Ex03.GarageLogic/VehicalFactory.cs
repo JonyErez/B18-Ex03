@@ -9,10 +9,15 @@ namespace Ex03.GarageLogic
 	{
 		public enum eVehicalTypes
 		{
+			[System.ComponentModel.Description("Gas Truck")]
 			GasTruck = 1,
+			[System.ComponentModel.Description("Electric Car")]
 			ElectricCar,
+			[System.ComponentModel.Description("Gas Car")]
 			GasCar,
+			[System.ComponentModel.Description("Electric Motorcycle")]
 			ElectricMotorcycle,
+			[System.ComponentModel.Description("Gas Motorcycle")]
 			GasMotorcycle
 		}
 
@@ -60,14 +65,14 @@ namespace Ex03.GarageLogic
 
 		private static void makeMotorcycleWheels(BaseClasses.Vehical i_Vehical)
 		{
-			i_Vehical.Wheels = new List<Wheel>(eConstants.CarWheels);
+			i_Vehical.Wheels = new List<Wheel>(eConstants.MotorcycleWheels);
 			makeWheels(i_Vehical.Wheels, eConstants.MotorcycleMaxPSI);
 		}
 
 		private static void makeTruckWheels(BaseClasses.Vehical i_Vehical)
 		{
-			i_Vehical.Wheels = new List<Wheel>(eConstants.TruckMaxPSI);
-			makeWheels(i_Vehical.Wheels, eConstants.CarMaxPSI);
+			i_Vehical.Wheels = new List<Wheel>(eConstants.TruckWheels);
+			makeWheels(i_Vehical.Wheels, eConstants.TruckMaxPSI);
 		}
 
 		private static void makeWheels(List<Wheel> i_Wheels, float i_MaxPSI)
