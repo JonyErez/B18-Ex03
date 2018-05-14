@@ -70,6 +70,10 @@ namespace Ex03.ConsoleUI
 					break;
 				case eMenuOptions.Exit:
 					exitGarage = true;
+					Console.Clear();
+					Console.WriteLine("Thank you for coming to Jonivs garage!");
+					Console.WriteLine("Press 'Enter' to exit the program!");
+					Console.ReadLine();
 					break;
 
 			}
@@ -272,6 +276,7 @@ namespace Ex03.ConsoleUI
 				newVehical.Vehical = VehicalFactory.CreateVehical(vehicalType, vehicalModel, licensePlate);
 				askVehicalDetails(newVehical);
 				m_Garage.AddVehical(newVehical);
+				Console.WriteLine("The vehical was successfully added to the garage!");
 			}
 
 			returnToMenuPrompt();
@@ -279,9 +284,22 @@ namespace Ex03.ConsoleUI
 
 		private string getVehicalModel() //TODO
 		{
+			string modelName;
+			string minMaxValues = string.Format("{0},{1}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string modelNameFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
+			System.Text.RegularExpressions.Regex modelValidation = new System.Text.RegularExpressions.Regex(modelNameFormat);
+
 			Console.Clear();
-			Console.Write("Please enter the vehical model: ");
-			return Console.ReadLine();
+			Console.Write("Please enter the cars model ({0}-{1} letters/numbers): ", eConstants.MinStringLength, eConstants.MaxStringLength);
+			modelName = Console.ReadLine();
+
+			while (!modelValidation.IsMatch(modelName))
+			{
+				Console.Write("Please enter a valid model ({0}-{1} letters/numbers): ", eConstants.MinStringLength, eConstants.MaxStringLength);
+				modelName = Console.ReadLine();
+			}
+
+			return modelName;
 		}
 
 		private object enumParse<T>()
@@ -341,15 +359,17 @@ namespace Ex03.ConsoleUI
 		private string askOwnerPhone()
 		{
 			string phoneNumber;
-			System.Text.RegularExpressions.Regex phoneNumberValidation = new System.Text.RegularExpressions.Regex(@"^[0-9]{9,10}$");
+			string minMaxValues = string.Format("{0},{1}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string phoneNumberFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
+			System.Text.RegularExpressions.Regex phoneNumberValidation = new System.Text.RegularExpressions.Regex(phoneNumberFormat);
 
 			Console.Clear();
-			Console.Write("Please enter your phone number (9-10 digits): ");
+			Console.Write("Please enter your phone number ({0}-{1} digits): ", eConstants.MinPhoneNumberLength, eConstants.MaxPhoneNumberLength);
 			phoneNumber = Console.ReadLine();
 
 			while (!phoneNumberValidation.IsMatch(phoneNumber))
 			{
-				Console.Write("Please enter a valid phone number (9-10 digits): ");
+				Console.Write("Please enter a valid phone number ({0}-{1} digits): ", eConstants.MinPhoneNumberLength, eConstants.MaxPhoneNumberLength);
 				phoneNumber = Console.ReadLine();
 			}
 
@@ -359,15 +379,17 @@ namespace Ex03.ConsoleUI
 		private string askOwnerName()
 		{
 			string ownerName;
-			System.Text.RegularExpressions.Regex nameValidation = new System.Text.RegularExpressions.Regex(@"^[a-zA-Z]{1,20}$");
+			string minMaxValues = string.Format("{0},{1}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string ownerNameFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
+			System.Text.RegularExpressions.Regex nameValidation = new System.Text.RegularExpressions.Regex(ownerNameFormat);
 
 			Console.Clear();
-			Console.Write("Please enter the car owners name (1-20 characters): ");
+			Console.Write("Please enter the car owners name (1-20 letters): ");
 			ownerName = Console.ReadLine();
 
 			while (!nameValidation.IsMatch(ownerName))
 			{
-				Console.Write("Please enter a valid name (1-20 characters): ");
+				Console.Write("Please enter a valid name (1-20 letters): ");
 				ownerName = Console.ReadLine();
 			}
 
@@ -418,19 +440,20 @@ namespace Ex03.ConsoleUI
 
 		private void askForNumberOfDoors(GarageLogic.VehicalTypes.Car i_Car)
 		{
+			Console.Clear();
 			Console.WriteLine("Please choose a number of doors for your car:");
 			i_Car.NumberOfDoors = (eNumberOfDoors)enumParse<eNumberOfDoors>();
 		}
 
 		private void askForColor(GarageLogic.VehicalTypes.Car i_Car)
 		{
+			Console.Clear();
 			Console.WriteLine("Please choose a color for your car:");
 			i_Car.Color = (eColor)enumParse<eColor>();
 		}
 
 		private void askMotorcycleDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
-			Console.Clear();
 			GarageLogic.VehicalTypes.Motorcycle motorcycle = i_Vehical as GarageLogic.VehicalTypes.Motorcycle;
 			askLicenseTypes(motorcycle);
 			askEngineVolume(motorcycle);
@@ -438,12 +461,14 @@ namespace Ex03.ConsoleUI
 
 		private void askLicenseTypes(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
 		{
+			Console.Clear();
 			Console.WriteLine("Please choose a license type for your motorcycle:");
 			i_Motorcycle.LicenseType = (eLicenseTypes)enumParse<eLicenseTypes>();
 		}
 
 		private void askEngineVolume(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
 		{
+			Console.Clear();
 			while(true)
 			{
 				try
@@ -454,18 +479,24 @@ namespace Ex03.ConsoleUI
 				}
 				catch(FormatException ex)
 				{
-					Console.WriteLine(ex.Message);
+					printExceptionMessage(ex);
+
 				}
-				catch(ArgumentException ex)
+				catch (ArgumentException ex)
 				{
-					Console.WriteLine(ex.Message);
+					printExceptionMessage(ex);
 				}
 			}
 		}
 
-		private void askTruckDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private void printExceptionMessage(Exception i_Ex)
 		{
 			Console.Clear();
+			Console.WriteLine(i_Ex.Message);
+		}
+
+		private void askTruckDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		{
 			GarageLogic.VehicalTypes.Truck truck = i_Vehical as GarageLogic.VehicalTypes.Truck;
 			askCargoholdVolume(truck);
 			askIfCargoholdCooled(truck);
@@ -473,12 +504,14 @@ namespace Ex03.ConsoleUI
 
 		private void askIfCargoholdCooled(GarageLogic.VehicalTypes.Truck i_Truck)
 		{
+			Console.Clear();
 			Console.WriteLine("Is cargohold cooled?");
 			i_Truck.IsCargoholdCooled = askUserYesNoInput();				
 		}
 
 		private void askCargoholdVolume(GarageLogic.VehicalTypes.Truck i_Truck)
 		{
+			Console.Clear();
 			while(true)
 			{
 				try
@@ -489,11 +522,11 @@ namespace Ex03.ConsoleUI
 				}
 				catch(FormatException ex)
 				{
-					Console.Write(ex.Message);
+					printExceptionMessage(ex);
 				}
 				catch (ArgumentException ex)
 				{
-					Console.Write(ex.Message);
+					printExceptionMessage(ex);
 				}
 			}
 		}
@@ -502,10 +535,10 @@ namespace Ex03.ConsoleUI
 		{
 			int i = 1;
 
-			Console.Clear();
-			Console.WriteLine("Vehical wheels information:");
 			foreach (Wheel wheel in i_Wheels)
 			{
+				Console.Clear();
+				Console.WriteLine("Vehical wheels information:");
 				Console.WriteLine(string.Format("Wheel {0}", i));
 				askCurrentWheelDetails(wheel);
 				i++;
@@ -524,11 +557,11 @@ namespace Ex03.ConsoleUI
 				}
 				catch (GarageLogic.ValueOutOfRangeException ex)
 				{
-					Console.WriteLine(ex.Message);
+					printExceptionMessage(ex);
 				}
 				catch (FormatException ex)
 				{
-					Console.WriteLine(ex.Message);
+					printExceptionMessage(ex);
 				}
 			}
 			Console.Write("Please enter the wheels model: ");
@@ -536,7 +569,7 @@ namespace Ex03.ConsoleUI
 
 			}
 
-		public string askLicensePlate()
+		public string askLicensePlate() // TODO Validation
 		{
 			Console.Write("Please enter the vehicals license plate: ");
 			return Console.ReadLine();
@@ -598,17 +631,24 @@ namespace Ex03.ConsoleUI
 			Console.ReadLine();
 		}
 
-		private string GetEnumDescription(Enum value)
+		private string GetEnumDescription(Enum i_Value)
 		{
-			System.Reflection.FieldInfo fi = value.GetType().GetField(value.ToString());
+			string enumDescription;
+			System.Reflection.FieldInfo fiendInfo = i_Value.GetType().GetField(i_Value.ToString());
 
 			System.ComponentModel.DescriptionAttribute[] attributes =
-				(System.ComponentModel.DescriptionAttribute[])fi.GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false);
+				(System.ComponentModel.DescriptionAttribute[])fiendInfo.GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false);
 
 			if (attributes != null && attributes.Length > 0)
-				return attributes[0].Description;
+			{
+				enumDescription = attributes[0].Description;
+			}
 			else
-				return value.ToString();
+			{
+				enumDescription = i_Value.ToString();
+			}
+
+			return enumDescription;
 		}
 	}
 }

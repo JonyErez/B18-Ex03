@@ -9,7 +9,6 @@ namespace Ex03.ConsoleUI
 		public static void Main()
 		{
 			RunGarage();
-			Console.ReadLine();
 		}
 		
 		private static void RunGarage()
