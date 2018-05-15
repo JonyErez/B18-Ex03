@@ -8,9 +8,9 @@ namespace Ex03.ConsoleUI
 {
 	public class UserInterface
 	{
-		private Garage m_Garage = new Garage();
+		private Garage	m_Garage = new Garage();
 
-		public enum eMenuOptions
+		public	enum			eMenuOptions
 		{
 			[System.ComponentModel.Description("Add vehical to garage")]
 			NewVehical = 1,
@@ -30,7 +30,7 @@ namespace Ex03.ConsoleUI
 			Exit
 		} 
 
-		public eMenuOptions getMenuSelection()
+		public	eMenuOptions	getMenuSelection()
 		{
 			eMenuOptions menuOption;
 
@@ -41,7 +41,7 @@ namespace Ex03.ConsoleUI
 			return menuOption;
 		}
 
-		public bool MenuOperations(eMenuOptions i_UserSelectedAction)
+		public	bool			MenuOperations(eMenuOptions i_UserSelectedAction)
 		{
 			bool exitGarage = false;
 
@@ -81,7 +81,7 @@ namespace Ex03.ConsoleUI
 			return exitGarage;
 		}
 
-		private void displayListOfVehicals()
+		private	void			displayListOfVehicals()
 		{
 			bool filter;
 			List<string> licensePlates;
@@ -113,7 +113,7 @@ namespace Ex03.ConsoleUI
 			returnToMenuPrompt();
 		}
 
-		private void changeVehicalStatus()
+		private	void			changeVehicalStatus()
 		{
 			VehicalInformation vehical;
 
@@ -134,7 +134,7 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private void inflateWheels()
+		private	void			inflateWheels()
 		{
 			VehicalInformation vehical;
 
@@ -158,7 +158,7 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private void refuelVehical()
+		private	void			refuelVehical()
 		{
 			VehicalInformation vehical;
 			eFuelType fuelType;
@@ -196,7 +196,7 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private float askUserForFloat()
+		private	float			askUserForFloat()
 		{
 			float userInput;
 
@@ -216,7 +216,7 @@ namespace Ex03.ConsoleUI
 			return userInput;
 		}
 
-		private void rechargeVehical()
+		private	void			rechargeVehical()
 		{
 			VehicalInformation vehical;
 
@@ -251,7 +251,7 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private void addVehicalToTheGarage()
+		private	void			addVehicalToTheGarage()
 		{
 			bool doesVehicalExist = false;
 			VehicalFactory.eVehicalTypes vehicalType;
@@ -282,10 +282,10 @@ namespace Ex03.ConsoleUI
 			returnToMenuPrompt();
 		}
 
-		private string getVehicalModel() //TODO
+		private	string			getVehicalModel()
 		{
 			string modelName;
-			string minMaxValues = string.Format("{0},{1}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
 			string modelNameFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex modelValidation = new System.Text.RegularExpressions.Regex(modelNameFormat);
 
@@ -302,7 +302,7 @@ namespace Ex03.ConsoleUI
 			return modelName;
 		}
 
-		private object enumParse<T>()
+		private	object			enumParse<T>()
 		{
 			T parsedEnum;
 			while (true)
@@ -327,7 +327,7 @@ namespace Ex03.ConsoleUI
 			return parsedEnum;
 		}
 
-		private void askVehicalDetails(VehicalInformation i_Vehical)
+		private	void			askVehicalDetails(VehicalInformation i_Vehical)
 		{
 			getGeneralVehicalInformation(i_Vehical);
 			if (i_Vehical.Vehical is GarageLogic.VehicalTypes.Car)
@@ -347,7 +347,7 @@ namespace Ex03.ConsoleUI
 			updateEnergyPercentLeft(i_Vehical.Vehical);
 		}
 
-		private void getGeneralVehicalInformation(VehicalInformation i_Vehical)
+		private	void			getGeneralVehicalInformation(VehicalInformation i_Vehical)
 		{
 			i_Vehical.OwnerName = askOwnerName();
 			i_Vehical.OwnerPhone = askOwnerPhone();
@@ -356,10 +356,10 @@ namespace Ex03.ConsoleUI
 
 		}
 
-		private string askOwnerPhone()
+		private	string			askOwnerPhone()
 		{
 			string phoneNumber;
-			string minMaxValues = string.Format("{0},{1}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
 			string phoneNumberFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex phoneNumberValidation = new System.Text.RegularExpressions.Regex(phoneNumberFormat);
 
@@ -376,10 +376,10 @@ namespace Ex03.ConsoleUI
 			return phoneNumber;
 		}
 
-		private string askOwnerName()
+		private	string			askOwnerName()
 		{
 			string ownerName;
-			string minMaxValues = string.Format("{0},{1}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
 			string ownerNameFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex nameValidation = new System.Text.RegularExpressions.Regex(ownerNameFormat);
 
@@ -396,7 +396,7 @@ namespace Ex03.ConsoleUI
 			return ownerName;
 		}
 
-		private void askEngineDetails (GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askEngineDetails (GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
 			Console.Clear();
 			while (true)
@@ -422,7 +422,7 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private void askCarDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askCarDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
 			Console.Clear();
 			GarageLogic.VehicalTypes.Car car = i_Vehical as GarageLogic.VehicalTypes.Car;
@@ -430,7 +430,7 @@ namespace Ex03.ConsoleUI
 			askForNumberOfDoors(car);
 		}
 
-		private void printEnum<T>()
+		private	void			printEnum<T>()
 		{
 			foreach(var value in Enum.GetValues(typeof(T)))
 			{
@@ -438,35 +438,35 @@ namespace Ex03.ConsoleUI
 			}
 		} 
 
-		private void askForNumberOfDoors(GarageLogic.VehicalTypes.Car i_Car)
+		private	void			askForNumberOfDoors(GarageLogic.VehicalTypes.Car i_Car)
 		{
 			Console.Clear();
 			Console.WriteLine("Please choose a number of doors for your car:");
 			i_Car.NumberOfDoors = (eNumberOfDoors)enumParse<eNumberOfDoors>();
 		}
 
-		private void askForColor(GarageLogic.VehicalTypes.Car i_Car)
+		private	void			askForColor(GarageLogic.VehicalTypes.Car i_Car)
 		{
 			Console.Clear();
 			Console.WriteLine("Please choose a color for your car:");
 			i_Car.Color = (eColor)enumParse<eColor>();
 		}
 
-		private void askMotorcycleDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askMotorcycleDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
 			GarageLogic.VehicalTypes.Motorcycle motorcycle = i_Vehical as GarageLogic.VehicalTypes.Motorcycle;
 			askLicenseTypes(motorcycle);
 			askEngineVolume(motorcycle);
 		} 
 
-		private void askLicenseTypes(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
+		private	void			askLicenseTypes(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
 		{
 			Console.Clear();
 			Console.WriteLine("Please choose a license type for your motorcycle:");
 			i_Motorcycle.LicenseType = (eLicenseTypes)enumParse<eLicenseTypes>();
 		}
 
-		private void askEngineVolume(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
+		private	void			askEngineVolume(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
 		{
 			Console.Clear();
 			while(true)
@@ -489,27 +489,27 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private void printExceptionMessage(Exception i_Ex)
+		private	void			printExceptionMessage(Exception i_Ex)
 		{
 			Console.Clear();
 			Console.WriteLine(i_Ex.Message);
 		}
 
-		private void askTruckDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askTruckDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
 			GarageLogic.VehicalTypes.Truck truck = i_Vehical as GarageLogic.VehicalTypes.Truck;
 			askCargoholdVolume(truck);
 			askIfCargoholdCooled(truck);
 		}
 
-		private void askIfCargoholdCooled(GarageLogic.VehicalTypes.Truck i_Truck)
+		private	void			askIfCargoholdCooled(GarageLogic.VehicalTypes.Truck i_Truck)
 		{
 			Console.Clear();
 			Console.WriteLine("Is cargohold cooled?");
 			i_Truck.IsCargoholdCooled = askUserYesNoInput();				
 		}
 
-		private void askCargoholdVolume(GarageLogic.VehicalTypes.Truck i_Truck)
+		private	void			askCargoholdVolume(GarageLogic.VehicalTypes.Truck i_Truck)
 		{
 			Console.Clear();
 			while(true)
@@ -531,7 +531,7 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private void askWheelsDetails(List<Wheel> i_Wheels)
+		private	void			askWheelsDetails(List<Wheel> i_Wheels)
 		{
 			int i = 1;
 
@@ -545,7 +545,7 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private void askCurrentWheelDetails(Wheel i_Wheel)
+		private	void			askCurrentWheelDetails(Wheel i_Wheel)
 		{
 			while (true)
 			{
@@ -569,18 +569,32 @@ namespace Ex03.ConsoleUI
 
 			}
 
-		public string askLicensePlate() // TODO Validation
+		public	string			askLicensePlate()
 		{
-			Console.Write("Please enter the vehicals license plate: ");
-			return Console.ReadLine();
+			string licensePlate;
+			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinLicensePlateLength, eConstants.MaxLicensePlateLength);
+			string licensePlateFormat = string.Format(@"^[A-Z0-9]{0}$", minMaxValues);
+			System.Text.RegularExpressions.Regex modelValidation = new System.Text.RegularExpressions.Regex(licensePlateFormat);
+
+			Console.Clear();
+			Console.Write("Please enter a license plate ({0}-{1} capital letters/numbers): ", eConstants.MinLicensePlateLength, eConstants.MaxLicensePlateLength);
+			licensePlate = Console.ReadLine();
+
+			while (!modelValidation.IsMatch(licensePlate))
+			{
+				Console.Write("Please enter a valid license plate ({0}-{1} capital letters/numbers): ", eConstants.MinLicensePlateLength, eConstants.MaxLicensePlateLength);
+				licensePlate = Console.ReadLine();
+			}
+
+			return licensePlate;
 		}
 		
-		private void updateEnergyPercentLeft(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			updateEnergyPercentLeft(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
 			i_Vehical.UpdateEnergyPercentLeft();
 		}
 
-		private void printVehicalInformation()
+		private	void			printVehicalInformation()
 		{
 			VehicalInformation vehical;
 
@@ -600,7 +614,7 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private bool askUserYesNoInput()
+		private	bool			askUserYesNoInput()
 		{
 			bool userAnswer;
 			string userInput;
@@ -625,13 +639,13 @@ namespace Ex03.ConsoleUI
 			return userAnswer;
 		}
 
-		private void returnToMenuPrompt()
+		private	void			returnToMenuPrompt()
 		{
 			Console.Write("{0}Press 'Enter' to return to the menu.", Environment.NewLine);
 			Console.ReadLine();
 		}
 
-		private string GetEnumDescription(Enum i_Value)
+		private	string			GetEnumDescription(Enum i_Value)
 		{
 			string enumDescription;
 			System.Reflection.FieldInfo fiendInfo = i_Value.GetType().GetField(i_Value.ToString());

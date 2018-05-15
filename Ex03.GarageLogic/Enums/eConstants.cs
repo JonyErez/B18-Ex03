@@ -24,5 +24,7 @@ namespace Ex03.GarageLogic.Enums
 		public const int MaxStringLength = 20;
 		public const int MinPhoneNumberLength = 1;
 		public const int MaxPhoneNumberLength = 20;
+		public const int MinLicensePlateLength = 7;
+		public const int MaxLicensePlateLength = 8;
 	}
 }
