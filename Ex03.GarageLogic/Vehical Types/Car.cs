@@ -17,7 +17,9 @@ namespace Ex03.GarageLogic.VehicalTypes
 		{
 			StringBuilder ElectricCarDetails = new StringBuilder(base.ToString());
 			ElectricCarDetails.AppendLine(string.Format(
-@"Color: {0}
+@"
+Car Properties:
+Color: {0}
 Number of doors: {1}", 
 m_Color.ToString(), 
 m_NumberOfDoors.ToString()));

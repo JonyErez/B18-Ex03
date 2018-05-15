@@ -27,7 +27,6 @@ Energy left: {2:p}
 
 Wheels:
 {3}
-Engine:
 {4}", 
 r_LicensePlate, 
 r_Model, 

@@ -50,7 +50,9 @@ namespace Ex03.GarageLogic.VehicalTypes
 		{
 			StringBuilder ElectricMotorcycleDetails = new StringBuilder(base.ToString());
 			ElectricMotorcycleDetails.AppendLine(string.Format(
-@"License type: {0}
+@"
+Motorcycle Properties:
+License type: {0}
 Engine volume: {1}cc", 
 LicenseType.ToString(), 
 EngineVolume));

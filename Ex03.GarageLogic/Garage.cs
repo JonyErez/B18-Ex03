@@ -6,9 +6,9 @@ namespace Ex03.GarageLogic
 {
 	public class Garage
 	{
-		private	Dictionary<int, VehicalInformation>	Vehicals = new Dictionary<int, VehicalInformation>();
+		private	readonly	Dictionary<int, VehicalInformation>	Vehicals = new Dictionary<int, VehicalInformation>();
 
-		public	VehicalInformation	FindVehical(string i_LicensePlate)
+		public				VehicalInformation					FindVehical(string i_LicensePlate)
 		{
 			VehicalInformation VehicalToFind;
 
@@ -20,18 +20,18 @@ namespace Ex03.GarageLogic
 			return VehicalToFind;
 		}
 
-		public	void				AddVehical(VehicalInformation i_VehicalToAdd)
+		public				void								AddVehical(VehicalInformation i_VehicalToAdd)
 		{
 			Vehicals.Add(i_VehicalToAdd.Vehical.LicensePlate.GetHashCode(), i_VehicalToAdd);
 		}
 
-		public	void				ChangeVehicalStatus(string i_LicensePlate, Enums.eVehicalStatus i_NewStatus)
+		public				void								ChangeVehicalStatus(string i_LicensePlate, Enums.eVehicalStatus i_NewStatus)
 		{
 			VehicalInformation VehicalToUpdate = FindVehical(i_LicensePlate);
 			VehicalToUpdate.VehicalStatus = i_NewStatus;
 		}
 
-		public	List<string>		ListVehicals()
+		public				List<string>						ListVehicals()
 		{
 			List<string> licensePlates = new List<string>(Vehicals.Count);
 			foreach (KeyValuePair<int, VehicalInformation> currentVehical in Vehicals)
@@ -42,7 +42,7 @@ namespace Ex03.GarageLogic
 			return licensePlates;
 		}
 
-		public	List<string>		ListVehicals(Enums.eVehicalStatus i_StatusToFilterBy)
+		public				List<string>						ListVehicals(Enums.eVehicalStatus i_StatusToFilterBy)
 		{
 			List<string> licensePlates = new List<string>();
 			foreach (KeyValuePair<int, VehicalInformation> currentVehical in Vehicals)
@@ -56,7 +56,7 @@ namespace Ex03.GarageLogic
 			return licensePlates;
 		}
 
-		public	void				InflateWheels(string i_LicensePlate)
+		public				void								InflateWheels(string i_LicensePlate)
 		{
 			VehicalInformation VehicalToInflate = FindVehical(i_LicensePlate);
 			foreach (Wheel currentWheel in VehicalToInflate.Vehical.Wheels)
@@ -65,7 +65,7 @@ namespace Ex03.GarageLogic
 			}
 		}
 
-		public	void				RefuelVehical(string i_LicensePlate, Enums.eFuelType i_FuelType, float i_GasToFill)
+		public				void								RefuelVehical(string i_LicensePlate, Enums.eFuelType i_FuelType, float i_GasToFill)
 		{
 			VehicalInformation VehicalToRefuel = FindVehical(i_LicensePlate);
 			EngineTypes.GasEngine gasVehicalToRefuel = VehicalToRefuel.Vehical.Engine as EngineTypes.GasEngine;
@@ -80,7 +80,7 @@ namespace Ex03.GarageLogic
 			}
 		}
 
-		public	void				RechargeVehical(string i_LicensePlate, float i_HoursToCharge)
+		public				void								RechargeVehical(string i_LicensePlate, float i_HoursToCharge)
 		{
 			VehicalInformation VehicalToRecharge = FindVehical(i_LicensePlate);
 			EngineTypes.ElectricEngine electricVehicalToRecharge = VehicalToRecharge.Vehical.Engine as EngineTypes.ElectricEngine;
@@ -95,13 +95,13 @@ namespace Ex03.GarageLogic
 			}
 		}
 
-		public	string				VehicalDetails(string i_LicensePlate)
+		public				string								VehicalDetails(string i_LicensePlate)
 		{
 			VehicalInformation VehicalToPrintDetails = FindVehical(i_LicensePlate);
 			return VehicalToPrintDetails.ToString();
 		}
 
-		public	bool				DoesVehicalExist(string i_LicensePlate)
+		public				bool								DoesVehicalExist(string i_LicensePlate)
 		{
 			return Vehicals.ContainsKey(i_LicensePlate.GetHashCode());
 		}

@@ -86,7 +86,7 @@ namespace Ex03.ConsoleUI
 			List<string> licensePlates;
 
 			Console.Clear();
-			Console.Write("Do you wish to filter by car status? ");
+			Console.Write("Do you wish to filter by vehical status? ");
 			filter = askUserYesNoInput();
 			if (filter)
 			{
@@ -174,7 +174,7 @@ namespace Ex03.ConsoleUI
 					fuelType = (eFuelType)enumParse<eFuelType>();
 					Console.WriteLine("Enter how much fuel do you wish to fill (liters): ");
 					gasVehicalEngine.FillGas(fuelType, askUserForFloat());
-					Console.WriteLine("Car was successfully refueled!");
+					Console.WriteLine("Vehical was successfully refueled!");
 					vehical.Vehical.UpdateEnergyPercentLeft();
 				}
 				else
@@ -227,9 +227,9 @@ namespace Ex03.ConsoleUI
 				GarageLogic.EngineTypes.ElectricEngine electricVehicalEngine = vehical.Vehical.Engine as GarageLogic.EngineTypes.ElectricEngine;
 				if (electricVehicalEngine != null)
 				{
-					Console.WriteLine("Enter how much time do you wish to recharge for (hours): ");
+					Console.Write("Enter how much time do you wish to recharge for (hours): ");
 					electricVehicalEngine.ChargeVehical(askUserForFloat());
-					Console.WriteLine("Car was successfully recharged!");
+					Console.WriteLine("Vehical was successfully recharged!");
 					vehical.Vehical.UpdateEnergyPercentLeft();
 				}
 				else
@@ -272,7 +272,8 @@ namespace Ex03.ConsoleUI
 				Console.WriteLine("Please choose the type of vehical you want to add");
 				vehicalType = (VehicalFactory.eVehicalTypes)enumParse<VehicalFactory.eVehicalTypes>();
 				VehicalInformation newVehical = new VehicalInformation();
-				vehicalModel = askVehicalModel();
+				Console.Clear();
+				vehicalModel = askString("vehicals model");
 				newVehical.Vehical = VehicalFactory.CreateVehical(vehicalType, vehicalModel, licensePlate);
 				askVehicalDetails(newVehical);
 				m_Garage.AddVehical(newVehical);
@@ -282,20 +283,19 @@ namespace Ex03.ConsoleUI
 			returnToMenuPrompt();
 		}
 
-		private	string			askVehicalModel()
+		private	string			askString(string i_StringToAskFor)
 		{
 			string modelName;
 			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
 			string modelNameFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex modelValidation = new System.Text.RegularExpressions.Regex(modelNameFormat);
 
-			Console.Clear();
-			Console.Write("Please enter the cars model ({0}-{1} letters/numbers): ", eConstants.MinStringLength, eConstants.MaxStringLength);
+			Console.Write("Please enter the {0} ({1}-{2} letters/numbers): ", i_StringToAskFor, eConstants.MinStringLength, eConstants.MaxStringLength);
 			modelName = Console.ReadLine();
 
 			while (!modelValidation.IsMatch(modelName))
 			{
-				Console.Write("Please enter a valid model ({0}-{1} letters/numbers): ", eConstants.MinStringLength, eConstants.MaxStringLength);
+				Console.Write("Please enter a valid {0} ({1}-{2} letters/numbers): ", i_StringToAskFor, eConstants.MinStringLength, eConstants.MaxStringLength);
 				modelName = Console.ReadLine();
 			}
 
@@ -321,6 +321,7 @@ namespace Ex03.ConsoleUI
 				}
 				catch (ArgumentException)
 				{
+					Console.Clear();
 					Console.WriteLine("Invalid option, please enter a valid option.");
 				}
 			}
@@ -360,12 +361,12 @@ namespace Ex03.ConsoleUI
 		private	string			askOwnerPhone()
 		{
 			string phoneNumber;
-			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinPhoneNumberLength, eConstants.MaxPhoneNumberLength);
 			string phoneNumberFormat = string.Format(@"^[0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex phoneNumberValidation = new System.Text.RegularExpressions.Regex(phoneNumberFormat);
 
 			Console.Clear();
-			Console.Write("Please enter your phone number ({0}-{1} digits): ", eConstants.MinPhoneNumberLength, eConstants.MaxPhoneNumberLength);
+			Console.Write("Please enter the vehicals owner phone number ({0}-{1} digits): ", eConstants.MinPhoneNumberLength, eConstants.MaxPhoneNumberLength);
 			phoneNumber = Console.ReadLine();
 
 			while (!phoneNumberValidation.IsMatch(phoneNumber))
@@ -385,7 +386,7 @@ namespace Ex03.ConsoleUI
 			System.Text.RegularExpressions.Regex nameValidation = new System.Text.RegularExpressions.Regex(ownerNameFormat);
 
 			Console.Clear();
-			Console.Write("Please enter the car owners name ({0}-{1} letters): ", eConstants.MinStringLength, eConstants.MaxStringLength);
+			Console.Write("Please enter the vehicals owner name ({0}-{1} letters): ", eConstants.MinStringLength, eConstants.MaxStringLength);
 			ownerName = Console.ReadLine();
 
 			while (!nameValidation.IsMatch(ownerName))
@@ -565,8 +566,7 @@ namespace Ex03.ConsoleUI
 				}
 			}
 
-			Console.Write("Please enter the wheels model: ");
-			i_Wheel.Manufacturer = Console.ReadLine();
+			i_Wheel.Manufacturer = askString("wheels manufacturer");
 			}
 
 		public	string			askLicensePlate()

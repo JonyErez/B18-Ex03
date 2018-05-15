@@ -50,7 +50,9 @@ namespace Ex03.GarageLogic.VehicalTypes
 		{
 			StringBuilder TruckDetails = new StringBuilder(base.ToString());
 			TruckDetails.AppendLine(string.Format(
-@"Cargohold volume: {0}L
+@"
+Truck Properties:
+Cargohold volume: {0}L
 Is cargohold cooled: {1}", 
 CargoholdVolume, 
 IsCargoholdCooled == true ? "Yes" : "No"));

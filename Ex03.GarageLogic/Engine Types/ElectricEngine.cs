@@ -14,7 +14,8 @@ namespace Ex03.GarageLogic.EngineTypes
 		{
 			StringBuilder electricVehicalDetails = new StringBuilder();
 			electricVehicalDetails.AppendLine(string.Format(
-@"Max battary time: {0}
+@"Electric Engine Properties:
+Max battary time: {0}
 Battary time left: {1}", 
 MaxCapacity, 
 CurrentCapacity));
@@ -24,7 +25,7 @@ CurrentCapacity));
 
 		public				void	ChargeVehical(float i_HoursToCharge)
 		{
-			if (i_HoursToCharge < 0)
+			if (i_HoursToCharge >= 0)
 			{
 				if (CurrentCapacity + i_HoursToCharge <= MaxCapacity)
 				{
@@ -37,7 +38,7 @@ CurrentCapacity));
 			}
 			else
 			{
-				throw new ArgumentOutOfRangeException("The ammount of hours to charge is negative!");
+				throw new ArgumentException("The ammount of hours to charge is negative!");
 			}
 		}
 	}

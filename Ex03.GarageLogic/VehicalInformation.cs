@@ -15,7 +15,8 @@ namespace Ex03.GarageLogic
 		{
 			StringBuilder vehicalInformation = new StringBuilder();
 			vehicalInformation.Append(string.Format(
-@"Owner: {0}
+@"General Information:
+Owner: {0}
 Phone number: {1}
 Status: {2}
 
