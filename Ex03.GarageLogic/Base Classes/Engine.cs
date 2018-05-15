@@ -45,6 +45,5 @@ namespace Ex03.GarageLogic.BaseClasses
 				}
 			}
 		}
-
 	}
 }

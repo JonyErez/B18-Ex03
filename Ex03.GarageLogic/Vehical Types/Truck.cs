@@ -19,6 +19,7 @@ namespace Ex03.GarageLogic.VehicalTypes
 			{
 				return m_CargoholdVolume;
 			}
+
 			set
 			{
 				if(value < 0)
@@ -38,6 +39,7 @@ namespace Ex03.GarageLogic.VehicalTypes
 			{
 				return m_IsCargoholdCooled;
 			}
+
 			set
 			{
 				m_IsCargoholdCooled = value;
@@ -47,8 +49,11 @@ namespace Ex03.GarageLogic.VehicalTypes
 		public override string ToString()
 		{
 			StringBuilder TruckDetails = new StringBuilder(base.ToString());
-			TruckDetails.AppendLine(string.Format(@"Cargohold volume: {0}L
-Is cargohold cooled: {1:Yes;;No}", CargoholdVolume, IsCargoholdCooled)); //TODO: check condition.
+			TruckDetails.AppendLine(string.Format(
+@"Cargohold volume: {0}L
+Is cargohold cooled: {1}", 
+CargoholdVolume, 
+IsCargoholdCooled == true ? "Yes" : "No"));
 
 			return TruckDetails.ToString();
 		}

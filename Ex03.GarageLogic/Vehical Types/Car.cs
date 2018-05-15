@@ -15,9 +15,12 @@ namespace Ex03.GarageLogic.VehicalTypes
 
 		public override string ToString()
 		{
-			StringBuilder ElectricCarDetails =  new StringBuilder(base.ToString());
-			ElectricCarDetails.AppendLine(string.Format(@"Color: {0}
-Number of doors: {1}", m_Color.ToString(), m_NumberOfDoors.ToString()));
+			StringBuilder ElectricCarDetails = new StringBuilder(base.ToString());
+			ElectricCarDetails.AppendLine(string.Format(
+@"Color: {0}
+Number of doors: {1}", 
+m_Color.ToString(), 
+m_NumberOfDoors.ToString()));
 
 			return ElectricCarDetails.ToString();
 		}
@@ -28,6 +31,7 @@ Number of doors: {1}", m_Color.ToString(), m_NumberOfDoors.ToString()));
 			{
 				return m_Color;
 			}
+
 			set
 			{
 				m_Color = value;
@@ -40,6 +44,7 @@ Number of doors: {1}", m_Color.ToString(), m_NumberOfDoors.ToString()));
 			{
 				return m_NumberOfDoors;
 			}
+
 			set
 			{
 				m_NumberOfDoors = value;

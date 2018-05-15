@@ -6,10 +6,10 @@ namespace Ex03.GarageLogic.BaseClasses
 {
 	public abstract class Vehical
 	{
-		private Engine m_Engine = null;
 		private readonly string r_Model;
 		private readonly string r_LicensePlate;
 		private float m_EnergyLeft;
+		private Engine m_Engine = null;
 		private List<Wheel> m_Wheels;
 
 		public Vehical(string i_Model, string i_LicensePlate)
@@ -20,14 +20,20 @@ namespace Ex03.GarageLogic.BaseClasses
 
 		public override string ToString()
 		{
-			return string.Format(@"License plate: {0}
+			return string.Format(
+@"License plate: {0}
 Model: {1}
 Energy left: {2:p}
 
 Wheels:
 {3}
 Engine:
-{4}", r_LicensePlate, r_Model, m_EnergyLeft, getWheelDetails(), m_Engine.ToString());
+{4}", 
+r_LicensePlate, 
+r_Model, 
+m_EnergyLeft, 
+getWheelDetails(), 
+m_Engine.ToString());
 		}
 
 		private string getWheelDetails()
@@ -93,6 +99,7 @@ Engine:
 			{
 				return m_Wheels;
 			}
+
 			set
 			{
 				m_Wheels = value;

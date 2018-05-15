@@ -6,15 +6,17 @@ namespace Ex03.GarageLogic
 {
 	public class Garage
 	{
-		Dictionary<int, VehicalInformation> Vehicals = new Dictionary<int, VehicalInformation>();
+		private Dictionary<int, VehicalInformation> Vehicals = new Dictionary<int, VehicalInformation>();
 
 		public VehicalInformation FindVehical(string i_LicensePlate)
 		{
 			VehicalInformation VehicalToFind;
+
 			if (!Vehicals.TryGetValue(i_LicensePlate.GetHashCode(), out VehicalToFind))
 			{
 				throw new ArgumentException(string.Format("No vehical that matches the license plate '{0}' in the garage!", i_LicensePlate));
 			}
+
 			return VehicalToFind;
 		}
 

@@ -75,7 +75,6 @@ namespace Ex03.ConsoleUI
 					Console.WriteLine("Press 'Enter' to exit the program!");
 					Console.ReadLine();
 					break;
-
 			}
 
 			return exitGarage;
@@ -146,6 +145,7 @@ namespace Ex03.ConsoleUI
 				{
 					currentWheel.Inflate(currentWheel.MaxPSI - currentWheel.CurrentPSI);
 				}
+
 				Console.WriteLine("All the vehicals wheels were successfully inflated!");
 			}
 			catch (ArgumentException ex)
@@ -272,7 +272,7 @@ namespace Ex03.ConsoleUI
 				Console.WriteLine("Please choose the type of vehical you want to add");
 				vehicalType = (VehicalFactory.eVehicalTypes)enumParse<VehicalFactory.eVehicalTypes>();
 				VehicalInformation newVehical = new VehicalInformation();
-				vehicalModel = getVehicalModel();
+				vehicalModel = askVehicalModel();
 				newVehical.Vehical = VehicalFactory.CreateVehical(vehicalType, vehicalModel, licensePlate);
 				askVehicalDetails(newVehical);
 				m_Garage.AddVehical(newVehical);
@@ -282,7 +282,7 @@ namespace Ex03.ConsoleUI
 			returnToMenuPrompt();
 		}
 
-		private	string			getVehicalModel()
+		private	string			askVehicalModel()
 		{
 			string modelName;
 			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
@@ -316,6 +316,7 @@ namespace Ex03.ConsoleUI
 					{
 						throw new ArgumentException();
 					}
+
 					break;
 				}
 				catch (ArgumentException)
@@ -344,6 +345,7 @@ namespace Ex03.ConsoleUI
 			{
 				askTruckDetails(i_Vehical.Vehical);
 			}
+
 			updateEnergyPercentLeft(i_Vehical.Vehical);
 		}
 
@@ -353,14 +355,13 @@ namespace Ex03.ConsoleUI
 			i_Vehical.OwnerPhone = askOwnerPhone();
 			askEngineDetails(i_Vehical.Vehical);
 			askWheelsDetails(i_Vehical.Vehical.Wheels);
-
 		}
 
 		private	string			askOwnerPhone()
 		{
 			string phoneNumber;
 			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
-			string phoneNumberFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
+			string phoneNumberFormat = string.Format(@"^[0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex phoneNumberValidation = new System.Text.RegularExpressions.Regex(phoneNumberFormat);
 
 			Console.Clear();
@@ -380,23 +381,23 @@ namespace Ex03.ConsoleUI
 		{
 			string ownerName;
 			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
-			string ownerNameFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
+			string ownerNameFormat = string.Format(@"^[a-zA-Z]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex nameValidation = new System.Text.RegularExpressions.Regex(ownerNameFormat);
 
 			Console.Clear();
-			Console.Write("Please enter the car owners name (1-20 letters): ");
+			Console.Write("Please enter the car owners name ({0}-{1} letters): ", eConstants.MinStringLength, eConstants.MaxStringLength);
 			ownerName = Console.ReadLine();
 
 			while (!nameValidation.IsMatch(ownerName))
 			{
-				Console.Write("Please enter a valid name (1-20 letters): ");
+				Console.Write("Please enter a valid name ({0}-{1} letters): ", eConstants.MinStringLength, eConstants.MaxStringLength);
 				ownerName = Console.ReadLine();
 			}
 
 			return ownerName;
 		}
 
-		private	void			askEngineDetails (GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askEngineDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
 		{
 			Console.Clear();
 			while (true)
@@ -480,7 +481,6 @@ namespace Ex03.ConsoleUI
 				catch(FormatException ex)
 				{
 					printExceptionMessage(ex);
-
 				}
 				catch (ArgumentException ex)
 				{
@@ -564,9 +564,9 @@ namespace Ex03.ConsoleUI
 					printExceptionMessage(ex);
 				}
 			}
+
 			Console.Write("Please enter the wheels model: ");
 			i_Wheel.Manufacturer = Console.ReadLine();
-
 			}
 
 		public	string			askLicensePlate()
@@ -633,6 +633,7 @@ namespace Ex03.ConsoleUI
 					userAnswer = false;
 					break;
 				}
+
 				Console.WriteLine("Invalid selection!");
 			}
 

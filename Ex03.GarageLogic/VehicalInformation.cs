@@ -9,17 +9,22 @@ namespace Ex03.GarageLogic
 		private string m_OwnerName;
 		private string m_OwnerPhone;
 		private Enums.eVehicalStatus m_VehicalStatus = Enums.eVehicalStatus.InRepair;
-		BaseClasses.Vehical m_Vehical;
+		private BaseClasses.Vehical m_Vehical;
 
 		public override string ToString()
 		{
 			StringBuilder vehicalInformation = new StringBuilder();
-			vehicalInformation.Append(string.Format(@"Owner: {0}
+			vehicalInformation.Append(string.Format(
+@"Owner: {0}
 Phone number: {1}
 Status: {2}
 
 Vehical information:
-{3}", m_OwnerName, m_OwnerPhone, m_VehicalStatus.ToString(), m_Vehical.ToString()));
+{3}", 
+m_OwnerName, 
+m_OwnerPhone, 
+m_VehicalStatus.ToString(), 
+m_Vehical.ToString()));
 
 			return vehicalInformation.ToString();
 		}

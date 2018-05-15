@@ -16,9 +16,13 @@ namespace Ex03.GarageLogic.EngineTypes
 		public override string ToString()
 		{
 			StringBuilder gasVehicalDetails = new StringBuilder();
-			gasVehicalDetails.AppendLine(string.Format(@"Fuel type: {0}
+			gasVehicalDetails.AppendLine(string.Format(
+@"Fuel type: {0}
 Max gas tank capacity: {1}L
-Current gas volume: {2}L", r_FuelType.ToString(), MaxCapacity, CurrentCapacity));
+Current gas volume: {2}L", 
+r_FuelType.ToString(), 
+MaxCapacity, 
+CurrentCapacity));
 
 			return gasVehicalDetails.ToString();
 		}

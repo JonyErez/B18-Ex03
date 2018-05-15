@@ -22,8 +22,8 @@ namespace Ex03.GarageLogic.Enums
 		public const eFuelType TruckFuelType = eFuelType.Soler;
 		public const int MinStringLength = 1;
 		public const int MaxStringLength = 20;
-		public const int MinPhoneNumberLength = 1;
-		public const int MaxPhoneNumberLength = 20;
+		public const int MinPhoneNumberLength = 9;
+		public const int MaxPhoneNumberLength = 10;
 		public const int MinLicensePlateLength = 7;
 		public const int MaxLicensePlateLength = 8;
 	}

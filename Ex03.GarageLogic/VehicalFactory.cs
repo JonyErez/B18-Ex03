@@ -77,11 +77,10 @@ namespace Ex03.GarageLogic
 
 		private static void makeWheels(List<Wheel> i_Wheels, float i_MaxPSI)
 		{
-			for(int i=0; i<i_Wheels.Capacity; i++)
+			for (int i = 0; i < i_Wheels.Capacity; i++)
 			{
 				i_Wheels.Add(new Wheel(i_MaxPSI));
 			}
 		}
-
 	}
 }
