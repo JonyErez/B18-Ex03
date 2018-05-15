@@ -6,12 +6,12 @@ namespace Ex03.GarageLogic
 {
 	public class VehicalInformation
 	{
-		private string m_OwnerName;
-		private string m_OwnerPhone;
-		private Enums.eVehicalStatus m_VehicalStatus = Enums.eVehicalStatus.InRepair;
-		private BaseClasses.Vehical m_Vehical;
+		private	string					m_OwnerName;
+		private string					m_OwnerPhone;
+		private Enums.eVehicalStatus	m_VehicalStatus = Enums.eVehicalStatus.InRepair;
+		private BaseClasses.Vehical		m_Vehical;
 
-		public override string ToString()
+		public	override	string					ToString()
 		{
 			StringBuilder vehicalInformation = new StringBuilder();
 			vehicalInformation.Append(string.Format(
@@ -29,7 +29,7 @@ m_Vehical.ToString()));
 			return vehicalInformation.ToString();
 		}
 
-		public string OwnerName
+		public				string					OwnerName
 		{
 			get
 			{
@@ -42,7 +42,7 @@ m_Vehical.ToString()));
 			}
 		}
 
-		public string OwnerPhone
+		public				string					OwnerPhone
 		{
 			get
 			{
@@ -55,7 +55,7 @@ m_Vehical.ToString()));
 			}
 		}
 
-		public Enums.eVehicalStatus VehicalStatus
+		public				Enums.eVehicalStatus	VehicalStatus
 		{
 			get
 			{
@@ -68,7 +68,7 @@ m_Vehical.ToString()));
 			}
 		}
 
-		public BaseClasses.Vehical Vehical
+		public				BaseClasses.Vehical		Vehical
 		{
 			get
 			{

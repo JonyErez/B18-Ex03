@@ -6,11 +6,11 @@ namespace Ex03.GarageLogic.EngineTypes
 {
 	public class ElectricEngine : BaseClasses.Engine
 	{
-		public ElectricEngine(float i_MaxBattaryTime) : base(i_MaxBattaryTime)
+		public						ElectricEngine(float i_MaxBattaryTime) : base(i_MaxBattaryTime)
 		{
 		}
 
-		public override string ToString()
+		public	override	string	ToString()
 		{
 			StringBuilder electricVehicalDetails = new StringBuilder();
 			electricVehicalDetails.AppendLine(string.Format(
@@ -22,7 +22,7 @@ CurrentCapacity));
 			return electricVehicalDetails.ToString();
 		}
 
-		public void ChargeVehical(float i_HoursToCharge)
+		public				void	ChargeVehical(float i_HoursToCharge)
 		{
 			if (i_HoursToCharge < 0)
 			{

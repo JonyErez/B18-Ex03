@@ -4,16 +4,16 @@ namespace Ex03.GarageLogic
 {
 	public class Wheel
 	{
-		private		readonly	float	r_MaxPSI;
-		private					string	i_Manufacturer;
-		private					float	m_CurrentPSI;
+		private	readonly	float	r_MaxPSI;
+		private				string	i_Manufacturer;
+		private				float	m_CurrentPSI;
 
-		public Wheel(float i_MaxPSI)
+		public						Wheel(float i_MaxPSI)
 		{
 			r_MaxPSI = i_MaxPSI;
 		}
 
-		public override string ToString()
+		public	override	string	ToString()
 		{
 			return string.Format(
 @"Manufacor: {0}
@@ -24,7 +24,7 @@ r_MaxPSI,
 m_CurrentPSI);
 		}
 
-		public	string	Manufacturer
+		public				string	Manufacturer
 		{
 			get
 			{
@@ -37,7 +37,7 @@ m_CurrentPSI);
 			}
 		}
 
-		public	float	CurrentPSI
+		public				float	CurrentPSI
 		{
 			get
 			{
@@ -57,7 +57,7 @@ m_CurrentPSI);
 			}
 		}
 
-		public	float	MaxPSI
+		public				float	MaxPSI
 		{
 			get
 			{
@@ -65,7 +65,7 @@ m_CurrentPSI);
 			}
 		}
 
-		public	void	Inflate(float i_AirToFill)
+		public				void	Inflate(float i_AirToFill)
 		{
 			if (i_AirToFill >= 0)
 			{

@@ -6,15 +6,15 @@ namespace Ex03.GarageLogic.BaseClasses
 {
 	public abstract class Engine
 	{
-		private readonly float r_MaxCapacity;
-		private float m_CurrentCapacity;
+		private	readonly	float	r_MaxCapacity;
+		private				float	m_CurrentCapacity;
 
-		public Engine(float i_MaxCapacity)
+		public			Engine(float i_MaxCapacity)
 		{
 			r_MaxCapacity = i_MaxCapacity;
 		}
 
-		public float MaxCapacity
+		public	float	MaxCapacity
 		{
 			get
 			{
@@ -22,7 +22,7 @@ namespace Ex03.GarageLogic.BaseClasses
 			}
 		}
 
-		public float CurrentCapacity
+		public	float	CurrentCapacity
 		{
 			get
 			{

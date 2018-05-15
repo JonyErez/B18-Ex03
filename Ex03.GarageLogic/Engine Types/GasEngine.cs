@@ -6,14 +6,14 @@ namespace Ex03.GarageLogic.EngineTypes
 {
 	public class GasEngine : BaseClasses.Engine
 	{
-		private readonly Enums.eFuelType r_FuelType;
+		private	readonly	Enums.eFuelType		r_FuelType;
 
-		public GasEngine(Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity) : base(i_MaxGasTankCapacity)
+		public								GasEngine(Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity) : base(i_MaxGasTankCapacity)
 		{
 			r_FuelType = i_FuelType;
 		}
 
-		public override string ToString()
+		public	override	string			ToString()
 		{
 			StringBuilder gasVehicalDetails = new StringBuilder();
 			gasVehicalDetails.AppendLine(string.Format(
@@ -27,7 +27,7 @@ CurrentCapacity));
 			return gasVehicalDetails.ToString();
 		}
 
-		public Enums.eFuelType FuelType
+		public				Enums.eFuelType	FuelType
 		{
 			get
 			{
@@ -35,7 +35,7 @@ CurrentCapacity));
 			}
 		}
 		
-		public void FillGas(Enums.eFuelType i_FuelType, float i_GasToFill)
+		public				void			FillGas(Enums.eFuelType i_FuelType, float i_GasToFill)
 		{
 			if (i_FuelType == r_FuelType)
 			{

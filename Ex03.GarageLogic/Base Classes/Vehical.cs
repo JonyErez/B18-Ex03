@@ -6,11 +6,11 @@ namespace Ex03.GarageLogic.BaseClasses
 {
 	public abstract class Vehical
 	{
-		private readonly string r_Model;
-		private readonly string r_LicensePlate;
-		private float m_EnergyLeft;
-		private Engine m_Engine = null;
-		private List<Wheel> m_Wheels;
+		private	readonly	string			r_Model;
+		private	readonly	string			r_LicensePlate;
+		private				float			m_EnergyLeft;
+		private				Engine			m_Engine = null;
+		private				List<Wheel>		m_Wheels;
 
 		public Vehical(string i_Model, string i_LicensePlate)
 		{
@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic.BaseClasses
 			r_LicensePlate = i_LicensePlate;
 		}
 
-		public override string ToString()
+		public	override	string		ToString()
 		{
 			return string.Format(
 @"License plate: {0}
@@ -36,7 +36,7 @@ getWheelDetails(),
 m_Engine.ToString());
 		}
 
-		private string getWheelDetails()
+		private				string		getWheelDetails()
 		{
 			StringBuilder wheelsDetails = new StringBuilder();
 			int i = 1;
@@ -51,7 +51,7 @@ m_Engine.ToString());
 			return wheelsDetails.ToString();
 		}
 
-		public Engine Engine
+		public				Engine		Engine
 		{
 			get
 			{
@@ -64,7 +64,7 @@ m_Engine.ToString());
 			}
 		}
 
-		public string Model
+		public				string		Model
 		{
 			get
 			{
@@ -72,7 +72,7 @@ m_Engine.ToString());
 			}
 		}
 
-		public string LicensePlate
+		public				string		LicensePlate
 		{
 			get
 			{
@@ -80,7 +80,7 @@ m_Engine.ToString());
 			}
 		}
 
-		protected float EnergyLeft
+		protected			float		EnergyLeft
 		{
 			get
 			{
@@ -93,7 +93,7 @@ m_Engine.ToString());
 			}
 		}
 
-		public List<Wheel> Wheels
+		public				List<Wheel>	Wheels
 		{
 			get
 			{
@@ -106,7 +106,7 @@ m_Engine.ToString());
 			}
 		}
 
-		public void UpdateEnergyPercentLeft()
+		public				void		UpdateEnergyPercentLeft()
 		{
 			m_EnergyLeft = m_Engine.CurrentCapacity / m_Engine.MaxCapacity;
 		}

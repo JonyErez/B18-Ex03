@@ -6,16 +6,26 @@ namespace Ex03.ConsoleUI
 {
 	public class Program
 	{
-		public static void Main()
+		public	static void Main()
 		{
 			RunGarage();
 		}
 		
-		private static void RunGarage()
+		private	static void RunGarage()
 		{
-			UserInterface UI = new UserInterface();
-			while (!UI.MenuOperations(UI.getMenuSelection()))
+			try
 			{
+				UserInterface UI = new UserInterface();
+				while (!UI.MenuOperations(UI.getMenuSelection()))
+				{
+				}
+			}
+
+			catch (Exception)
+			{
+				Console.WriteLine("An unexpected error has occured, the program will now terminate!");
+				Console.WriteLine("Press 'Enter' to close the program.");
+				Console.ReadLine();
 			}
 		}
 	}

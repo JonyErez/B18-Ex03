@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic
 			GasMotorcycle
 		}
 
-		public static BaseClasses.Vehical CreateVehical(eVehicalTypes i_VehicalType, string i_Model, string i_LicensePlate)
+		public	static	BaseClasses.Vehical		CreateVehical(eVehicalTypes i_VehicalType, string i_Model, string i_LicensePlate)
 		{
 			BaseClasses.Vehical newVehical = null;
 
@@ -57,25 +57,25 @@ namespace Ex03.GarageLogic
 			return newVehical;
 		}
 
-		private static void makeCarWheels(BaseClasses.Vehical i_Vehical)
+		private	static void						makeCarWheels(BaseClasses.Vehical i_Vehical)
 		{
 			i_Vehical.Wheels = new List<Wheel>(eConstants.CarWheels);
 			makeWheels(i_Vehical.Wheels, eConstants.CarMaxPSI);
 		}
 
-		private static void makeMotorcycleWheels(BaseClasses.Vehical i_Vehical)
+		private static void						makeMotorcycleWheels(BaseClasses.Vehical i_Vehical)
 		{
 			i_Vehical.Wheels = new List<Wheel>(eConstants.MotorcycleWheels);
 			makeWheels(i_Vehical.Wheels, eConstants.MotorcycleMaxPSI);
 		}
 
-		private static void makeTruckWheels(BaseClasses.Vehical i_Vehical)
+		private static void						makeTruckWheels(BaseClasses.Vehical i_Vehical)
 		{
 			i_Vehical.Wheels = new List<Wheel>(eConstants.TruckWheels);
 			makeWheels(i_Vehical.Wheels, eConstants.TruckMaxPSI);
 		}
 
-		private static void makeWheels(List<Wheel> i_Wheels, float i_MaxPSI)
+		private static void						makeWheels(List<Wheel> i_Wheels, float i_MaxPSI)
 		{
 			for (int i = 0; i < i_Wheels.Capacity; i++)
 			{

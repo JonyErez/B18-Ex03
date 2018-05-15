@@ -6,14 +6,14 @@ namespace Ex03.GarageLogic.VehicalTypes
 {
 	public class Car : BaseClasses.Vehical
 	{
-		private Enums.eColor m_Color;                      
-		private Enums.eNumberOfDoors m_NumberOfDoors;
+		private	Enums.eColor			m_Color;                      
+		private Enums.eNumberOfDoors	m_NumberOfDoors;
 
-		internal Car(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
+		internal								Car(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
 		{
 		}
 
-		public override string ToString()
+		public override string					ToString()
 		{
 			StringBuilder ElectricCarDetails = new StringBuilder(base.ToString());
 			ElectricCarDetails.AppendLine(string.Format(
@@ -25,7 +25,7 @@ m_NumberOfDoors.ToString()));
 			return ElectricCarDetails.ToString();
 		}
 
-		public Enums.eColor Color
+		public			Enums.eColor			Color
 		{
 			get
 			{
@@ -38,7 +38,7 @@ m_NumberOfDoors.ToString()));
 			}
 		}
 
-		public Enums.eNumberOfDoors NumberOfDoors
+		public			Enums.eNumberOfDoors	NumberOfDoors
 		{
 			get
 			{

@@ -6,14 +6,14 @@ namespace Ex03.GarageLogic.VehicalTypes
 {
 	public class Motorcycle : BaseClasses.Vehical
 	{
-		private Enums.eLicenseTypes m_LicenseType;             
-		private int m_EngineVolume;
+		private Enums.eLicenseTypes	m_LicenseType;             
+		private int					m_EngineVolume;
 
-		internal Motorcycle(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
+		internal								Motorcycle(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
 		{
 		}
 
-		public Enums.eLicenseTypes LicenseType
+		public				Enums.eLicenseTypes	LicenseType
 		{
 			get
 			{
@@ -26,7 +26,7 @@ namespace Ex03.GarageLogic.VehicalTypes
 			}
 		}
 
-		public int EngineVolume
+		public				int					EngineVolume
 		{
 			get
 			{
@@ -46,7 +46,7 @@ namespace Ex03.GarageLogic.VehicalTypes
 			}
 		}
 		
-		public override string ToString()
+		public	override	string				ToString()
 		{
 			StringBuilder ElectricMotorcycleDetails = new StringBuilder(base.ToString());
 			ElectricMotorcycleDetails.AppendLine(string.Format(

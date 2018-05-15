@@ -6,14 +6,14 @@ namespace Ex03.GarageLogic.VehicalTypes
 {
 	public class Truck : BaseClasses.Vehical
 	{
-		private float m_CargoholdVolume;
-		private bool m_IsCargoholdCooled;
+		private	float	m_CargoholdVolume;
+		private	bool	m_IsCargoholdCooled;
 
-		internal Truck(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
+		internal					Truck(string i_Model, string i_LicensePlate) : base(i_Model, i_LicensePlate)
 		{
 		}
 
-		public float CargoholdVolume
+		public				float	CargoholdVolume
 		{
 			get
 			{
@@ -33,7 +33,7 @@ namespace Ex03.GarageLogic.VehicalTypes
 			}
 		}
 
-		public bool IsCargoholdCooled
+		public				bool	IsCargoholdCooled
 		{
 			get
 			{
@@ -46,7 +46,7 @@ namespace Ex03.GarageLogic.VehicalTypes
 			}
 		}
 
-		public override string ToString()
+		public	override	string	ToString()
 		{
 			StringBuilder TruckDetails = new StringBuilder(base.ToString());
 			TruckDetails.AppendLine(string.Format(
