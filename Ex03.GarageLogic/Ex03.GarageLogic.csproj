@@ -39,7 +39,7 @@
   <ItemGroup>
     <Compile Include="Base Classes\Engine.cs" />
     <Compile Include="Enums\eColor.cs" />
-    <Compile Include="Enums\eConstants.cs" />
+    <Compile Include="Enums\EConstants.cs" />
     <Compile Include="Enums\eFuelType.cs" />
     <Compile Include="Engine Types\ElectricEngine.cs" />
     <Compile Include="Enums\eLicenceTypes.cs" />

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
+using Ex03.GarageLogic.Base_Classes;
 
-namespace Ex03.GarageLogic.VehicalTypes
+namespace Ex03.GarageLogic.Vehical_Types
 {
-	public class Car : BaseClasses.Vehical
+	public class Car : Vehical
 	{
 		private	Enums.eColor			m_Color;                      
 		private Enums.eNumberOfDoors	m_NumberOfDoors;
@@ -15,8 +14,8 @@ namespace Ex03.GarageLogic.VehicalTypes
 
 		public override string					ToString()
 		{
-			StringBuilder ElectricCarDetails = new StringBuilder(base.ToString());
-			ElectricCarDetails.AppendLine(string.Format(
+			StringBuilder electricCarDetails = new StringBuilder(base.ToString());
+			electricCarDetails.AppendLine(string.Format(
 @"
 Car Properties:
 Color: {0}
@@ -24,7 +23,7 @@ Number of doors: {1}",
 m_Color.ToString(), 
 m_NumberOfDoors.ToString()));
 
-			return ElectricCarDetails.ToString();
+			return electricCarDetails.ToString();
 		}
 
 		public			Enums.eColor			Color

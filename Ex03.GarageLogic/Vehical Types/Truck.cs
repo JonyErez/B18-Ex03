@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using Ex03.GarageLogic.Base_Classes;
 
-namespace Ex03.GarageLogic.VehicalTypes
+namespace Ex03.GarageLogic.Vehical_Types
 {
-	public class Truck : BaseClasses.Vehical
+	public class Truck : Vehical
 	{
 		private	float	m_CargoholdVolume;
 		private	bool	m_IsCargoholdCooled;

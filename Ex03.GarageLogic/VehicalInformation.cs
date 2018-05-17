@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Ex03.GarageLogic.Base_Classes;
 
 namespace Ex03.GarageLogic
 {
@@ -9,7 +10,7 @@ namespace Ex03.GarageLogic
 		private	string					m_OwnerName;
 		private string					m_OwnerPhone;
 		private Enums.eVehicalStatus	m_VehicalStatus = Enums.eVehicalStatus.InRepair;
-		private BaseClasses.Vehical		m_Vehical;
+		private Vehical		m_Vehical;
 
 		public	override	string					ToString()
 		{
@@ -69,7 +70,7 @@ m_Vehical.ToString()));
 			}
 		}
 
-		public				BaseClasses.Vehical		Vehical
+		public				Vehical		Vehical
 		{
 			get
 			{

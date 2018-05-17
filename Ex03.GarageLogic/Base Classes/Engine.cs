@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Ex03.GarageLogic.BaseClasses
+namespace Ex03.GarageLogic.Base_Classes
 {
 	public abstract class Engine
 	{
 		private	readonly	float	r_MaxCapacity;
 		private				float	m_CurrentCapacity;
 
-		public			Engine(float i_MaxCapacity)
+		protected Engine(float i_MaxCapacity)
 		{
 			r_MaxCapacity = i_MaxCapacity;
 		}

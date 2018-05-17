@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Ex03.GarageLogic.BaseClasses
+namespace Ex03.GarageLogic.Base_Classes
 {
 	public abstract class Vehical
 	{
@@ -12,7 +11,7 @@ namespace Ex03.GarageLogic.BaseClasses
 		private				Engine			m_Engine = null;
 		private				List<Wheel>		m_Wheels;
 
-		public Vehical(string i_Model, string i_LicensePlate)
+		protected Vehical(string i_Model, string i_LicensePlate)
 		{
 			r_Model = i_Model;
 			r_LicensePlate = i_LicensePlate;
@@ -28,9 +27,9 @@ Energy left: {2:p}
 Wheels:
 {3}
 {4}", 
-r_LicensePlate, 
-r_Model, 
-m_EnergyLeft, 
+LicensePlate, 
+Model, 
+EnergyLeft, 
 getWheelDetails(), 
 m_Engine.ToString());
 		}

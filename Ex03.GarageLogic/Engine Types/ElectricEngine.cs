@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using Ex03.GarageLogic.Base_Classes;
 
-namespace Ex03.GarageLogic.EngineTypes
+namespace Ex03.GarageLogic.Engine_Types
 {
-	public class ElectricEngine : BaseClasses.Engine
+	public class ElectricEngine : Engine
 	{
 		public						ElectricEngine(float i_MaxBattaryTime) : base(i_MaxBattaryTime)
 		{
@@ -15,15 +15,15 @@ namespace Ex03.GarageLogic.EngineTypes
 			StringBuilder electricVehicalDetails = new StringBuilder();
 			electricVehicalDetails.AppendLine(string.Format(
 @"Electric Engine Properties:
-Max battary time: {0}
-Battary time left: {1}", 
+Max battary time: {0} hours
+Battary time left: {1} hours", 
 MaxCapacity, 
 CurrentCapacity));
 
 			return electricVehicalDetails.ToString();
 		}
 
-		public				void	ChargeVehical(float i_HoursToCharge)
+		internal			void	chargeVehical(float i_HoursToCharge)
 		{
 			if (i_HoursToCharge >= 0)
 			{

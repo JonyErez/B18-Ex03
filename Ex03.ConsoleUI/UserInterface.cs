@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using Ex03.GarageLogic;
+using Ex03.GarageLogic.Base_Classes;
+using Ex03.GarageLogic.Engine_Types;
 using Ex03.GarageLogic.Enums;
+using Ex03.GarageLogic.Vehical_Types;
 
 namespace Ex03.ConsoleUI
 {
 	public class UserInterface
 	{
-		private Garage	m_Garage = new Garage();
+		private readonly Garage	r_Garage = new Garage();
 
 		public	enum			eMenuOptions
 		{
@@ -30,13 +33,11 @@ namespace Ex03.ConsoleUI
 			Exit
 		} 
 
-		public	eMenuOptions	getMenuSelection()
+		public	eMenuOptions	GetMenuSelection()
 		{
-			eMenuOptions menuOption;
-
 			Console.Clear();
 			Console.WriteLine("Welcome to Joniv's garage!");
-			menuOption = (eMenuOptions)enumParse<eMenuOptions>();
+			eMenuOptions menuOption = (eMenuOptions)enumParse<eMenuOptions>();
 
 			return menuOption;
 		}
@@ -90,11 +91,11 @@ namespace Ex03.ConsoleUI
 			filter = askUserYesNoInput();
 			if (filter)
 			{
-				licensePlates = m_Garage.ListVehicals((eVehicalStatus)enumParse<eVehicalStatus>());
+				licensePlates = r_Garage.ListVehicals((eVehicalStatus)enumParse<eVehicalStatus>());
 			}
 			else
 			{
-				licensePlates = m_Garage.ListVehicals();
+				licensePlates = r_Garage.ListVehicals();
 			}
 
 			if (licensePlates.Count != 0)
@@ -114,12 +115,10 @@ namespace Ex03.ConsoleUI
 
 		private	void			changeVehicalStatus()
 		{
-			VehicalInformation vehical;
-
 			Console.Clear();
 			try
 			{
-				vehical = m_Garage.FindVehical(askLicensePlate());
+				VehicalInformation vehical = r_Garage.FindVehical(askLicensePlate());
 				Console.WriteLine("Please select your desired status:");
 				vehical.VehicalStatus = (eVehicalStatus)enumParse<eVehicalStatus>();
 			}
@@ -135,16 +134,11 @@ namespace Ex03.ConsoleUI
 
 		private	void			inflateWheels()
 		{
-			VehicalInformation vehical;
-
 			Console.Clear();
 			try
 			{
-				vehical = m_Garage.FindVehical(askLicensePlate());
-				foreach(Wheel currentWheel in vehical.Vehical.Wheels)
-				{
-					currentWheel.Inflate(currentWheel.MaxPSI - currentWheel.CurrentPSI);
-				}
+				VehicalInformation vehical = r_Garage.FindVehical(askLicensePlate());
+				r_Garage.InflateWheels(vehical.Vehical.LicensePlate);
 
 				Console.WriteLine("All the vehicals wheels were successfully inflated!");
 			}
@@ -160,22 +154,18 @@ namespace Ex03.ConsoleUI
 
 		private	void			refuelVehical()
 		{
-			VehicalInformation vehical;
-			eFuelType fuelType;
-
 			Console.Clear();
 			try
 			{
-				vehical = m_Garage.FindVehical(askLicensePlate());
-				GarageLogic.EngineTypes.GasEngine gasVehicalEngine = vehical.Vehical.Engine as GarageLogic.EngineTypes.GasEngine;
-				if (gasVehicalEngine != null)
+				VehicalInformation vehical = r_Garage.FindVehical(askLicensePlate());
+				if (vehical.Vehical.Engine is GasEngine gasVehicalEngine)
 				{
 					Console.WriteLine("Select the desired fuel type to use: ");
-					fuelType = (eFuelType)enumParse<eFuelType>();
+					eFuelType fuelType = (eFuelType)enumParse<eFuelType>();
 					Console.WriteLine("Enter how much fuel do you wish to fill (liters): ");
-					gasVehicalEngine.FillGas(fuelType, askUserForFloat());
-					Console.WriteLine("Vehical was successfully refueled!");
+					r_Garage.RefuelVehical(vehical, fuelType, askUserForFloat());
 					vehical.Vehical.UpdateEnergyPercentLeft();
+					Console.WriteLine("Vehical was successfully refueled!");
 				}
 				else
 				{
@@ -218,17 +208,14 @@ namespace Ex03.ConsoleUI
 
 		private	void			rechargeVehical()
 		{
-			VehicalInformation vehical;
-
 			Console.Clear();
 			try
 			{
-				vehical = m_Garage.FindVehical(askLicensePlate());
-				GarageLogic.EngineTypes.ElectricEngine electricVehicalEngine = vehical.Vehical.Engine as GarageLogic.EngineTypes.ElectricEngine;
-				if (electricVehicalEngine != null)
+				VehicalInformation vehical = r_Garage.FindVehical(askLicensePlate());
+				if (vehical.Vehical.Engine is ElectricEngine)
 				{
 					Console.Write("Enter how much time do you wish to recharge for (hours): ");
-					electricVehicalEngine.ChargeVehical(askUserForFloat());
+					r_Garage.RechargeVehical(vehical, askUserForFloat());
 					Console.WriteLine("Vehical was successfully recharged!");
 					vehical.Vehical.UpdateEnergyPercentLeft();
 				}
@@ -254,29 +241,26 @@ namespace Ex03.ConsoleUI
 		private	void			addVehicalToTheGarage()
 		{
 			bool doesVehicalExist = false;
-			VehicalFactory.eVehicalTypes vehicalType;
 
 			Console.Clear();
 			string licensePlate = askLicensePlate();
-			doesVehicalExist = m_Garage.DoesVehicalExist(licensePlate);	
+			doesVehicalExist = r_Garage.DoesVehicalExist(licensePlate);	
 			if(doesVehicalExist)
 			{
-				m_Garage.ChangeVehicalStatus(licensePlate, GarageLogic.Enums.eVehicalStatus.InRepair);
+				r_Garage.ChangeVehicalStatus(licensePlate, GarageLogic.Enums.eVehicalStatus.InRepair);
 				Console.WriteLine("The vehical license plate is already in the system, status changed to in repair.");
 			}
 			else
 			{
-				string vehicalModel;
-
 				Console.Clear();
 				Console.WriteLine("Please choose the type of vehical you want to add");
-				vehicalType = (VehicalFactory.eVehicalTypes)enumParse<VehicalFactory.eVehicalTypes>();
+				VehicalFactory.eVehicalTypes vehicalType = (VehicalFactory.eVehicalTypes)enumParse<VehicalFactory.eVehicalTypes>();
 				VehicalInformation newVehical = new VehicalInformation();
 				Console.Clear();
-				vehicalModel = askString("vehicals model");
+				string vehicalModel = askString("vehicals model");
 				newVehical.Vehical = VehicalFactory.CreateVehical(vehicalType, vehicalModel, licensePlate);
 				askVehicalDetails(newVehical);
-				m_Garage.AddVehical(newVehical);
+				r_Garage.AddVehical(newVehical);
 				Console.WriteLine("The vehical was successfully added to the garage!");
 			}
 
@@ -286,16 +270,16 @@ namespace Ex03.ConsoleUI
 		private	string			askString(string i_StringToAskFor)
 		{
 			string modelName;
-			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string minMaxValues = string.Format("{{{0},{1}}}", EConstants.k_MinStringLength, EConstants.k_MaxStringLength);
 			string modelNameFormat = string.Format(@"^[a-zA-Z0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex modelValidation = new System.Text.RegularExpressions.Regex(modelNameFormat);
 
-			Console.Write("Please enter the {0} ({1}-{2} letters/numbers): ", i_StringToAskFor, eConstants.MinStringLength, eConstants.MaxStringLength);
+			Console.Write("Please enter the {0} ({1}-{2} letters/numbers): ", i_StringToAskFor, EConstants.k_MinStringLength, EConstants.k_MaxStringLength);
 			modelName = Console.ReadLine();
 
 			while (!modelValidation.IsMatch(modelName))
 			{
-				Console.Write("Please enter a valid {0} ({1}-{2} letters/numbers): ", i_StringToAskFor, eConstants.MinStringLength, eConstants.MaxStringLength);
+				Console.Write("Please enter a valid {0} ({1}-{2} letters/numbers): ", i_StringToAskFor, EConstants.k_MinStringLength, EConstants.k_MaxStringLength);
 				modelName = Console.ReadLine();
 			}
 
@@ -332,17 +316,17 @@ namespace Ex03.ConsoleUI
 		private	void			askVehicalDetails(VehicalInformation i_Vehical)
 		{
 			getGeneralVehicalInformation(i_Vehical);
-			if (i_Vehical.Vehical is GarageLogic.VehicalTypes.Car)
+			if (i_Vehical.Vehical is Car)
 			{
 				askCarDetails(i_Vehical.Vehical);
 			}
 
-			if (i_Vehical.Vehical is GarageLogic.VehicalTypes.Motorcycle)
+			if (i_Vehical.Vehical is Motorcycle)
 			{
 				askMotorcycleDetails(i_Vehical.Vehical);
 			}
 
-			if (i_Vehical.Vehical is GarageLogic.VehicalTypes.Truck)
+			if (i_Vehical.Vehical is Truck)
 			{
 				askTruckDetails(i_Vehical.Vehical);
 			}
@@ -360,18 +344,17 @@ namespace Ex03.ConsoleUI
 
 		private	string			askOwnerPhone()
 		{
-			string phoneNumber;
-			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinPhoneNumberLength, eConstants.MaxPhoneNumberLength);
+			string minMaxValues = string.Format("{{{0},{1}}}", EConstants.k_MinPhoneNumberLength, EConstants.k_MaxPhoneNumberLength);
 			string phoneNumberFormat = string.Format(@"^[0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex phoneNumberValidation = new System.Text.RegularExpressions.Regex(phoneNumberFormat);
 
 			Console.Clear();
-			Console.Write("Please enter the vehicals owner phone number ({0}-{1} digits): ", eConstants.MinPhoneNumberLength, eConstants.MaxPhoneNumberLength);
-			phoneNumber = Console.ReadLine();
+			Console.Write("Please enter the vehicals owner phone number ({0}-{1} digits): ", EConstants.k_MinPhoneNumberLength, EConstants.k_MaxPhoneNumberLength);
+			string phoneNumber = Console.ReadLine();
 
 			while (!phoneNumberValidation.IsMatch(phoneNumber))
 			{
-				Console.Write("Please enter a valid phone number ({0}-{1} digits): ", eConstants.MinPhoneNumberLength, eConstants.MaxPhoneNumberLength);
+				Console.Write("Please enter a valid phone number ({0}-{1} digits): ", EConstants.k_MinPhoneNumberLength, EConstants.k_MaxPhoneNumberLength);
 				phoneNumber = Console.ReadLine();
 			}
 
@@ -380,25 +363,24 @@ namespace Ex03.ConsoleUI
 
 		private	string			askOwnerName()
 		{
-			string ownerName;
-			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinStringLength, eConstants.MaxStringLength);
+			string minMaxValues = string.Format("{{{0},{1}}}", EConstants.k_MinStringLength, EConstants.k_MaxStringLength);
 			string ownerNameFormat = string.Format(@"^[a-zA-Z]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex nameValidation = new System.Text.RegularExpressions.Regex(ownerNameFormat);
 
 			Console.Clear();
-			Console.Write("Please enter the vehicals owner name ({0}-{1} letters): ", eConstants.MinStringLength, eConstants.MaxStringLength);
-			ownerName = Console.ReadLine();
+			Console.Write("Please enter the vehicals owner name ({0}-{1} letters): ", EConstants.k_MinStringLength, EConstants.k_MaxStringLength);
+			string ownerName = Console.ReadLine();
 
 			while (!nameValidation.IsMatch(ownerName))
 			{
-				Console.Write("Please enter a valid name ({0}-{1} letters): ", eConstants.MinStringLength, eConstants.MaxStringLength);
+				Console.Write("Please enter a valid name ({0}-{1} letters): ", EConstants.k_MinStringLength, EConstants.k_MaxStringLength);
 				ownerName = Console.ReadLine();
 			}
 
 			return ownerName;
 		}
 
-		private	void			askEngineDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askEngineDetails(Vehical i_Vehical)
 		{
 			Console.Clear();
 			while (true)
@@ -424,10 +406,10 @@ namespace Ex03.ConsoleUI
 			}
 		}
 
-		private	void			askCarDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askCarDetails(Vehical i_Vehical)
 		{
 			Console.Clear();
-			GarageLogic.VehicalTypes.Car car = i_Vehical as GarageLogic.VehicalTypes.Car;
+			Car car = i_Vehical as Car;
 			askForColor(car);
 			askForNumberOfDoors(car);
 		}
@@ -436,39 +418,39 @@ namespace Ex03.ConsoleUI
 		{
 			foreach(var value in Enum.GetValues(typeof(T)))
 			{
-				Console.WriteLine("{0}. {1}", (int)value, GetEnumDescription((Enum)value));
+				Console.WriteLine("{0}. {1}", (int)value, getEnumDescription((Enum)value));
 			}
 		} 
 
-		private	void			askForNumberOfDoors(GarageLogic.VehicalTypes.Car i_Car)
+		private	void			askForNumberOfDoors(Car i_Car)
 		{
 			Console.Clear();
 			Console.WriteLine("Please choose a number of doors for your car:");
 			i_Car.NumberOfDoors = (eNumberOfDoors)enumParse<eNumberOfDoors>();
 		}
 
-		private	void			askForColor(GarageLogic.VehicalTypes.Car i_Car)
+		private	void			askForColor(Car i_Car)
 		{
 			Console.Clear();
 			Console.WriteLine("Please choose a color for your car:");
 			i_Car.Color = (eColor)enumParse<eColor>();
 		}
 
-		private	void			askMotorcycleDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askMotorcycleDetails(Vehical i_Vehical)
 		{
-			GarageLogic.VehicalTypes.Motorcycle motorcycle = i_Vehical as GarageLogic.VehicalTypes.Motorcycle;
+			Motorcycle motorcycle = i_Vehical as Motorcycle;
 			askLicenseTypes(motorcycle);
 			askEngineVolume(motorcycle);
 		} 
 
-		private	void			askLicenseTypes(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
+		private	void			askLicenseTypes(Motorcycle i_Motorcycle)
 		{
 			Console.Clear();
 			Console.WriteLine("Please choose a license type for your motorcycle:");
-			i_Motorcycle.LicenseType = (eLicenseTypes)enumParse<eLicenseTypes>();
+			i_Motorcycle.LicenseType = (eLicenseType)enumParse<eLicenseType>();
 		}
 
-		private	void			askEngineVolume(GarageLogic.VehicalTypes.Motorcycle i_Motorcycle)
+		private	void			askEngineVolume(Motorcycle i_Motorcycle)
 		{
 			Console.Clear();
 			while(true)
@@ -496,21 +478,21 @@ namespace Ex03.ConsoleUI
 			Console.WriteLine(i_Ex.Message);
 		}
 
-		private	void			askTruckDetails(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			askTruckDetails(Vehical i_Vehical)
 		{
-			GarageLogic.VehicalTypes.Truck truck = i_Vehical as GarageLogic.VehicalTypes.Truck;
+			Truck truck = i_Vehical as Truck;
 			askCargoholdVolume(truck);
 			askIfCargoholdCooled(truck);
 		}
 
-		private	void			askIfCargoholdCooled(GarageLogic.VehicalTypes.Truck i_Truck)
+		private	void			askIfCargoholdCooled(Truck i_Truck)
 		{
 			Console.Clear();
 			Console.WriteLine("Is cargohold cooled?");
 			i_Truck.IsCargoholdCooled = askUserYesNoInput();				
 		}
 
-		private	void			askCargoholdVolume(GarageLogic.VehicalTypes.Truck i_Truck)
+		private	void			askCargoholdVolume(Truck i_Truck)
 		{
 			Console.Clear();
 			while(true)
@@ -553,7 +535,7 @@ namespace Ex03.ConsoleUI
 				try
 				{
 					Console.Write("Please enter the wheels current PSI: ");
-					i_Wheel.CurrentPSI = float.Parse(Console.ReadLine());
+					i_Wheel.CurrentPsi = float.Parse(Console.ReadLine());
 					break;
 				}
 				catch (GarageLogic.ValueOutOfRangeException ex)
@@ -569,39 +551,36 @@ namespace Ex03.ConsoleUI
 			i_Wheel.Manufacturer = askString("wheels manufacturer");
 			}
 
-		public	string			askLicensePlate()
+		private	string			askLicensePlate()
 		{
-			string licensePlate;
-			string minMaxValues = string.Format("{{{0},{1}}}", eConstants.MinLicensePlateLength, eConstants.MaxLicensePlateLength);
+			string minMaxValues = string.Format("{{{0},{1}}}", EConstants.k_MinLicensePlateLength, EConstants.k_MaxLicensePlateLength);
 			string licensePlateFormat = string.Format(@"^[A-Z0-9]{0}$", minMaxValues);
 			System.Text.RegularExpressions.Regex modelValidation = new System.Text.RegularExpressions.Regex(licensePlateFormat);
 
 			Console.Clear();
-			Console.Write("Please enter a license plate ({0}-{1} capital letters/numbers): ", eConstants.MinLicensePlateLength, eConstants.MaxLicensePlateLength);
-			licensePlate = Console.ReadLine();
+			Console.Write("Please enter a license plate ({0}-{1} capital letters/numbers): ", EConstants.k_MinLicensePlateLength, EConstants.k_MaxLicensePlateLength);
+			string licensePlate = Console.ReadLine();
 
 			while (!modelValidation.IsMatch(licensePlate))
 			{
-				Console.Write("Please enter a valid license plate ({0}-{1} capital letters/numbers): ", eConstants.MinLicensePlateLength, eConstants.MaxLicensePlateLength);
+				Console.Write("Please enter a valid license plate ({0}-{1} capital letters/numbers): ", EConstants.k_MinLicensePlateLength, EConstants.k_MaxLicensePlateLength);
 				licensePlate = Console.ReadLine();
 			}
 
 			return licensePlate;
 		}
 		
-		private	void			updateEnergyPercentLeft(GarageLogic.BaseClasses.Vehical i_Vehical)
+		private	void			updateEnergyPercentLeft(Vehical i_Vehical)
 		{
 			i_Vehical.UpdateEnergyPercentLeft();
 		}
 
 		private	void			printVehicalInformation()
 		{
-			VehicalInformation vehical;
-
 			Console.Clear();
 			try
 			{
-				vehical = m_Garage.FindVehical(askLicensePlate());
+				VehicalInformation vehical = r_Garage.FindVehical(askLicensePlate());
 				Console.WriteLine(vehical.ToString());
 			}
 			catch (ArgumentException ex)
@@ -617,12 +596,11 @@ namespace Ex03.ConsoleUI
 		private	bool			askUserYesNoInput()
 		{
 			bool userAnswer;
-			string userInput;
 
 			while (true)
 			{
 				Console.Write("Please select yes or no [Y/N]: ");
-				userInput = Console.ReadLine();
+				string userInput = Console.ReadLine();
 				if (char.ToLower(userInput[0]) == 'y' && userInput.Length == 1)
 				{
 					userAnswer = true;
@@ -646,22 +624,14 @@ namespace Ex03.ConsoleUI
 			Console.ReadLine();
 		}
 
-		private	string			GetEnumDescription(Enum i_Value)
+		private	string			getEnumDescription(Enum i_Value)
 		{
-			string enumDescription;
 			System.Reflection.FieldInfo fiendInfo = i_Value.GetType().GetField(i_Value.ToString());
 
 			System.ComponentModel.DescriptionAttribute[] attributes =
 				(System.ComponentModel.DescriptionAttribute[])fiendInfo.GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false);
 
-			if (attributes != null && attributes.Length > 0)
-			{
-				enumDescription = attributes[0].Description;
-			}
-			else
-			{
-				enumDescription = i_Value.ToString();
-			}
+			string enumDescription = attributes.Length > 0 ? attributes[0].Description : i_Value.ToString();
 
 			return enumDescription;
 		}

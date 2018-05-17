@@ -8,15 +8,15 @@ namespace Ex03.ConsoleUI
 	{
 		public	static void Main()
 		{
-			RunGarage();
+			runGarage();
 		}
 		
-		private	static void RunGarage()
+		private	static void runGarage()
 		{
 			try
 			{
-				UserInterface UI = new UserInterface();
-				while (!UI.MenuOperations(UI.getMenuSelection()))
+				UserInterface userInterface = new UserInterface();
+				while (!userInterface.MenuOperations(userInterface.GetMenuSelection()))
 				{
 				}
 			}

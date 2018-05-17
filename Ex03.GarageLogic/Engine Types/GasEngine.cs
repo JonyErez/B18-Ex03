@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using Ex03.GarageLogic.Base_Classes;
 
-namespace Ex03.GarageLogic.EngineTypes
+namespace Ex03.GarageLogic.Engine_Types
 {
-	public class GasEngine : BaseClasses.Engine
+	public class GasEngine : Engine
 	{
-		private	readonly	Enums.eFuelType		r_FuelType;
+		private	readonly	Enums.eFuelType	r_FuelType;
 
 		public								GasEngine(Enums.eFuelType i_FuelType, float i_MaxGasTankCapacity) : base(i_MaxGasTankCapacity)
 		{
@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic.EngineTypes
 Fuel type: {0}
 Max gas tank capacity: {1}L
 Current gas volume: {2}L", 
-r_FuelType.ToString(), 
+FuelType.ToString(), 
 MaxCapacity, 
 CurrentCapacity));
 
@@ -36,7 +36,7 @@ CurrentCapacity));
 			}
 		}
 		
-		public				void			FillGas(Enums.eFuelType i_FuelType, float i_GasToFill)
+		internal			void			fillGas(Enums.eFuelType i_FuelType, float i_GasToFill)
 		{
 			if (i_FuelType == r_FuelType)
 			{
@@ -53,12 +53,12 @@ CurrentCapacity));
 				}
 				else
 				{
-					throw new ArgumentOutOfRangeException("The ammount of gas to fill is negative!");
+					throw new ArgumentException("The ammount of gas to fill is negative!");
 				}
 			}
 			else
 			{
-				throw new ArgumentOutOfRangeException("Wrong fuel type for vehical!");
+				throw new ArgumentException("Wrong fuel type for vehical!");
 			}
 		}
 	}

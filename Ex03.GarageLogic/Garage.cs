@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Ex03.GarageLogic.Engine_Types;
 
 namespace Ex03.GarageLogic
 {
 	public class Garage
 	{
-		private	readonly	Dictionary<int, VehicalInformation>	Vehicals = new Dictionary<int, VehicalInformation>();
+		private	readonly	Dictionary<int, VehicalInformation>	r_Vehicals = new Dictionary<int, VehicalInformation>();
 
 		public				VehicalInformation					FindVehical(string i_LicensePlate)
 		{
 			VehicalInformation VehicalToFind;
 
-			if (!Vehicals.TryGetValue(i_LicensePlate.GetHashCode(), out VehicalToFind))
+			if (!r_Vehicals.TryGetValue(i_LicensePlate.GetHashCode(), out VehicalToFind))
 			{
 				throw new ArgumentException(string.Format("No vehical that matches the license plate '{0}' in the garage!", i_LicensePlate));
 			}
@@ -22,7 +23,7 @@ namespace Ex03.GarageLogic
 
 		public				void								AddVehical(VehicalInformation i_VehicalToAdd)
 		{
-			Vehicals.Add(i_VehicalToAdd.Vehical.LicensePlate.GetHashCode(), i_VehicalToAdd);
+			r_Vehicals.Add(i_VehicalToAdd.Vehical.LicensePlate.GetHashCode(), i_VehicalToAdd);
 		}
 
 		public				void								ChangeVehicalStatus(string i_LicensePlate, Enums.eVehicalStatus i_NewStatus)
@@ -33,8 +34,8 @@ namespace Ex03.GarageLogic
 
 		public				List<string>						ListVehicals()
 		{
-			List<string> licensePlates = new List<string>(Vehicals.Count);
-			foreach (KeyValuePair<int, VehicalInformation> currentVehical in Vehicals)
+			List<string> licensePlates = new List<string>(r_Vehicals.Count);
+			foreach (KeyValuePair<int, VehicalInformation> currentVehical in r_Vehicals)
 			{
 				licensePlates.Add(currentVehical.Value.Vehical.LicensePlate);
 			}
@@ -45,7 +46,7 @@ namespace Ex03.GarageLogic
 		public				List<string>						ListVehicals(Enums.eVehicalStatus i_StatusToFilterBy)
 		{
 			List<string> licensePlates = new List<string>();
-			foreach (KeyValuePair<int, VehicalInformation> currentVehical in Vehicals)
+			foreach (KeyValuePair<int, VehicalInformation> currentVehical in r_Vehicals)
 			{
 				if (currentVehical.Value.VehicalStatus == i_StatusToFilterBy)
 				{
@@ -58,52 +59,40 @@ namespace Ex03.GarageLogic
 
 		public				void								InflateWheels(string i_LicensePlate)
 		{
-			VehicalInformation VehicalToInflate = FindVehical(i_LicensePlate);
-			foreach (Wheel currentWheel in VehicalToInflate.Vehical.Wheels)
+			VehicalInformation vehicalToInflate = FindVehical(i_LicensePlate);
+			foreach (Wheel currentWheel in vehicalToInflate.Vehical.Wheels)
 			{
-				currentWheel.Inflate(currentWheel.MaxPSI - currentWheel.CurrentPSI);
+				currentWheel.Inflate(currentWheel.MaxPsi - currentWheel.CurrentPsi);
 			}
 		}
 
-		public				void								RefuelVehical(string i_LicensePlate, Enums.eFuelType i_FuelType, float i_GasToFill)
+		public				void								RefuelVehical(VehicalInformation i_VehicalToRefuel, Enums.eFuelType i_FuelType, float i_GasToFill)
 		{
-			VehicalInformation VehicalToRefuel = FindVehical(i_LicensePlate);
-			EngineTypes.GasEngine gasVehicalToRefuel = VehicalToRefuel.Vehical.Engine as EngineTypes.GasEngine;
-
-			if (gasVehicalToRefuel != null)
+			if (i_VehicalToRefuel.Vehical.Engine is GasEngine gasVehicalToRefuel)
 			{
-				gasVehicalToRefuel.FillGas(i_FuelType, i_GasToFill);
+				gasVehicalToRefuel.fillGas(i_FuelType, i_GasToFill);
 			}
 			else
 			{
-				throw new ArgumentException("Cannot refuel a car that is not run by gas!");
+				throw new ArgumentException("Cannot refuel a vehical that is not run by gas!");
 			}
 		}
 
-		public				void								RechargeVehical(string i_LicensePlate, float i_HoursToCharge)
+		public				void								RechargeVehical(VehicalInformation i_VehicalToRecharge, float i_HoursToCharge)
 		{
-			VehicalInformation VehicalToRecharge = FindVehical(i_LicensePlate);
-			EngineTypes.ElectricEngine electricVehicalToRecharge = VehicalToRecharge.Vehical.Engine as EngineTypes.ElectricEngine;
-
-			if (electricVehicalToRecharge != null)
+			if (i_VehicalToRecharge.Vehical.Engine is ElectricEngine electricVehicalToRecharge)
 			{
-				electricVehicalToRecharge.ChargeVehical(i_HoursToCharge);
+				electricVehicalToRecharge.chargeVehical(i_HoursToCharge);
 			}
 			else
 			{
-				throw new ArgumentException("Cannot recharge a car that is not run by electricity!");
+				throw new ArgumentException("Cannot recharge a vehical that is not run by electricity!");
 			}
-		}
-
-		public				string								VehicalDetails(string i_LicensePlate)
-		{
-			VehicalInformation VehicalToPrintDetails = FindVehical(i_LicensePlate);
-			return VehicalToPrintDetails.ToString();
 		}
 
 		public				bool								DoesVehicalExist(string i_LicensePlate)
 		{
-			return Vehicals.ContainsKey(i_LicensePlate.GetHashCode());
+			return r_Vehicals.ContainsKey(i_LicensePlate.GetHashCode());
 		}
 	}
 }
