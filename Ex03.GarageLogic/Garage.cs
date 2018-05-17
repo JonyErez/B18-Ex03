@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Ex03.GarageLogic.Engine_Types;
 
 namespace Ex03.GarageLogic
@@ -11,14 +10,12 @@ namespace Ex03.GarageLogic
 
 		public				VehicalInformation					FindVehical(string i_LicensePlate)
 		{
-			VehicalInformation VehicalToFind;
-
-			if (!r_Vehicals.TryGetValue(i_LicensePlate.GetHashCode(), out VehicalToFind))
+			if (!r_Vehicals.TryGetValue(i_LicensePlate.GetHashCode(), out VehicalInformation vehicalToFind))
 			{
 				throw new ArgumentException(string.Format("No vehical that matches the license plate '{0}' in the garage!", i_LicensePlate));
 			}
 
-			return VehicalToFind;
+			return vehicalToFind;
 		}
 
 		public				void								AddVehical(VehicalInformation i_VehicalToAdd)

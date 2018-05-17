@@ -20,7 +20,6 @@ namespace Ex03.ConsoleUI
 				{
 				}
 			}
-
 			catch (Exception)
 			{
 				Console.WriteLine("An unexpected error has occured, the program will now terminate!");
